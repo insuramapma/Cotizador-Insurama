@@ -1845,7 +1845,7 @@
       var plansHtml = plans.map(function (p, i) {
         var total = p.p;
         var monthly = total / p.m;
-        var isHighlight = recommended ? (i === 0) : (title === 'Ext. Garantia' ? (i === 0) : (i === plans.length - 1));
+        var isHighlight = p.m === 36;
         var rowBg = isHighlight ? t.lightBg : '#f8f8f8';
         var rowBorder = isHighlight ? t.highlightBorder : '#e5e7eb';
         var priceColor = isHighlight ? t.iconColor : '#070200';
