@@ -1208,7 +1208,7 @@
           </div> <!-- Value Input -->
           <div class="md:col-span-4"> <label class="section-label mb-3 block">Precio de Lista (USD)</label>
             <div class="relative"> <span class="absolute left-4 top-1/2 -translate-y-1/2 font-normal text-base"
-                style="color:#818181">$</span> <input id="priceInput" type="number" min="0" step="1"
+                style="color:#818181">Q</span> <input id="priceInput" type="number" min="0" step="1"
                 placeholder="Precio del dispositivo"
                 class="w-full rounded-xl py-4 pl-10 pr-4 text-base font-normal transition-all"
                 style="background:#f5f5f7;border:1.5px solid #e5e7eb;color:#070200" oninput="calculate()"> </div>
@@ -1481,61 +1481,173 @@
 
     const DB = {
       iphone: {
-        ranges: [[250, 450], [450, 650], [650, 900], [900, 1250], [1250, 1625], [1625, 2000], [2000, 2375], [2375, 3000]],
+        ranges: [[0, 575], [576, 775], [776, 1200], [1201, 1500], [1501, 1900], [1901, 2300], [2301, 2700], [2701, 3100], [3101, 3500], [3501, 3900], [3901, 4300], [4301, 4600], [4601, 5200], [5201, 5800], [5801, 9700], [9701, 40000]],
+        accidenteRoboHurto: {
+          12: [169.58,261.47,381.59,460.06,580.27,703.73,827.18,950.64,1074.09,1313.13,1448.49,1583.86,1766.61,1969.67,2297.42,2531.24],
+          18: [237.41,366.06,534.23,644.08,812.38,985.22,1158.06,1330.89,1503.73,1838.38,2027.89,2217.41,2473.26,2757.53,3216.39,3543.74],
+          24: [271.32,418.36,610.54,736.09,928.44,1125.97,1323.49,1521.02,1718.55,2101,2317.59,2534.18,2826.58,3151.47,3675.88,4049.98],
+          36: [406.98,627.54,915.82,1104.13,1392.66,1688.95,1985.24,2281.53,2577.82,3151.5,3476.39,3801.27,4239.87,4727.20,5513.82,6074.98]
+        },
         todoRiesgo: {
-          12: [80, 130, 185, 195, 280, 355, 430, 520],
-          18: [115, 180, 255, 275, 395, 495, 600, 730],
-          24: [130, 205, 290, 310, 450, 565, 690, 835]
+          12: [179.23,276.35,403.30,486.23,613.29,743.77,874.25,1004.73,1135.21,1387.84,1530.91,1673.99,1867.13,2081.74,2428.15,2661.96],
+          18: [250.92,386.89,564.62,680.73,858.61,1041.28,1223.95,1406.62,1589.29,1942.98,2143.28,2343.58,2613.99,2914.44,3399.41,3726.75],
+          24: [286.76,442.16,645.28,777.97,981.27,1190.03,1398.80,1607.57,1816.33,2220.55,2449.46,2678.38,2987.41,3330.79,3885.04,4259.14],
+          36: [430.14,663.24,967.93,1166.96,1471.90,1785.05,2098.20,2411.35,2724.50,3330.82,3674.19,4017.57,4481.12,4996.18,5827.55,6388.71]
         },
         roboHurto: {
-          12: [40, 64, 90, 95, 140, 175, 210, 255],
-          18: [55, 90, 125, 135, 195, 245, 295, 360],
-          24: [65, 105, 140, 150, 220, 280, 340, 410]
-        }
-      },
-      ipad: {
-        ranges: [[250, 450], [450, 650], [650, 900], [900, 1250], [1250, 1625], [1625, 2000], [2000, 2375], [2375, 2625], [2625, 2875], [2875, 3125], [3125, 3500], [3500, 3875], [3875, 5000]],
-        todoRiesgo: {
-          12: [50, 80, 110, 130, 170, 210, 260, 295, 325, 350, 390, 435, 570],
-          18: [70, 110, 155, 185, 235, 300, 360, 410, 450, 495, 545, 605, 800],
-          24: [80, 125, 175, 210, 270, 340, 410, 470, 515, 565, 620, 690, 915]
+          12: [83.10,128.13,187,225.45,284.36,344.86,405.36,465.86,526.35,655.46,723.03,790.6,881.83,983.18,1121.59,1448.94],
+          18: [116.34,179.39,261.79,315.63,398.10,482.80,567.50,652.20,736.90,917.65,1012.25,1106.85,1234.56,1376.45,1570.23,2028.51],
+          24: [132.96,205.01,299.19,360.72,454.98,551.77,648.57,745.37,842.17,1048.74,1156.85,1264.97,1410.92,1573.09,1794.55,2318.30],
+          36: [199.44,307.52,448.79,541.08,682.47,827.66,972.86,1118.05,1263.25,1573.11,1735.28,1897.45,2116.38,2359.64,2691.83,3477.44]
         },
-        roboHurto: {
-          12: [25, 40, 55, 65, 85, 105, 125, 145, 160, 175, 190, 210, 285],
-          18: [35, 55, 75, 90, 116, 145, 175, 200, 220, 240, 265, 295, 400],
-          24: [40, 60, 85, 100, 135, 170, 200, 230, 255, 275, 305, 340, 455]
+        soloRotura: {
+          12: [98.91,152.52,222.58,268.35,338.47,410.48,482.49,554.5,626.51,766.64,845.67,924.70,1031.39,1149.94,1340.84,1340.84],
+          18: [138.48,213.52,311.61,375.69,473.86,574.67,675.49,776.30,877.12,1073.29,1183.93,1294.58,1443.95,1609.92,1877.18,1877.18],
+          24: [158.26,244.03,356.13,429.36,541.55,656.77,771.99,887.20,1002.42,1226.62,1353.07,1479.52,1650.23,1839.91,2145.34,2145.35],
+          36: [237.39,366.04,534.19,644.04,812.33,985.16,1157.98,1330.81,1503.63,1839.92,2029.6,2219.28,2475.34,2759.86,3218.02,3218.02]
+        },
+        accidentales: {
+          12: [110.22,169.95,248.02,299.02,377.16,457.40,537.64,617.88,698.13,844.94,932.04,1019.15,1136.74,1267.39,1496.29,1496.29],
+          18: [154.31,237.93,347.23,418.63,528.02,640.36,752.7,865.04,977.38,1182.91,1304.86,1426.81,1591.43,1774.35,2094.8,2094.80],
+          24: [176.35,271.92,396.83,478.43,603.45,731.84,860.23,988.61,1117,1351.90,1491.27,1630.64,1818.78,2027.83,2394.06,2394.06],
+          36: [264.53,407.88,595.25,717.65,905.18,1097.76,1290.34,1482.92,1675.50,2027.85,2236.90,2445.95,2728.17,3041.75,3591.08,3591.09]
         }
       },
       mac: {
-        ranges: [[500, 800], [800, 1000], [1000, 1500], [1500, 2000], [2000, 2500], [2500, 4250], [4250, 5000], [5000, 6250]],
-        todoRiesgo: {
-          12: [70, 95, 130, 215, 280, 355, 510, 615],
-          18: [95, 130, 180, 305, 390, 500, 710, 865],
-          24: [110, 150, 210, 345, 450, 570, 810, 985]
+        ranges: [[0, 2700], [2701, 4600], [4601, 7700], [7701, 11600], [11601, 17400], [17401, 23200], [23201, 40000]],
+         accidenteRoboHurto: {
+          12: [516.86,746.61,1103.99,1486.90,1971.92,2642.02,3299.34],
+          18: [723.61,1045.25,1545.59,2081.66,2760.69,3698.82,4619.08],
+          24: [826.98,1194.58,1766.39,2379.05,3155.08,4227.22,5278.95],
+          36: [1240.48,1791.87,2649.58,3568.57,4732.61,6340.84,7918.43]
         },
-        danoAccidental: {
-          12: [45, 60, 75, 130, 155, 195, 280, 340],
-          18: [65, 85, 110, 180, 215, 275, 390, 475],
-          24: [70, 100, 125, 210, 245, 310, 445, 540]
+        todoRiesgo: {
+          12: [546.27,789.09,1166.81,1571.51,2084.13,2792.35,3487.08],
+          18: [764.78,1104.73,1633.53,2200.11,2917.78,3909.28,4881.91],
+          24: [874.04,1262.55,1866.90,2514.41,3334.60,4467.75,5579.32],
+          36: [1311.06,1893.82,2800.35,3771.62,5001.90,6701.63,8368.98]
+        },
+        soloRobo: {
+          12: [116.6,220.24,323.88,492.29,725.49,1101.19,1476.88],
+          18: [163.23,308.33,453.43,689.21,1015.68,1541.66,2067.64],
+          24: [186.55,352.38,518.20,787.67,1160.78,1761.90,2363.01],
+          36: [279.83,528.57,777.31,1181.51,1741.17,2642.84,3544.52]
+        },
+        soloRotura: {
+          12: [344.56,433.90,644.50,784.9,931.68,1072.08,1218.87],
+          18: [482.38,607.46,902.30,1098.86,1304.36,1500.92,1706.41],
+          24: [551.29,694.24,1031.20,1255.84,1490.69,1715.33,1950.19],
+          36: [826.93,1041.36,1546.80,1883.76,2236.04,2573,2925.28]
+        },
+        accidentales: {
+          12: [400.27,526.37,780.12,994.61,1246.44,1540.83,1822.46],
+          18: [560.38,736.92,1092.16,1392.45,1745.01,2157.16,2551.44],
+          24: [640.43,842.20,1248.18,1591.37,1994.30,2465.33,2915.94],
+          36: [960.64,1263.30,1872.28,2387.06,2991.45,3697.99,4373.90]
+        }
+      },
+      ipad: {
+        ranges: [[0, 575], [576, 775], [776, 1200], [1201, 1500], [1501, 1900], [1901, 2300], [2301, 2700], [2701, 3100], [3101, 3500], [3501, 3900], [3901, 4300], [4301, 4600], [4601, 5200], [5201, 5800], [5801, 9700], [9701, 40000]],
+        accidenteRoboHurto: {
+          12: [141.55,218.26,318.52,384.02,484.37,587.42,690.47,793.52,896.58,1096.10,1209.1,1322.10,1474.64,1644.14,1917.73,2112.90],
+          18: [198.17,305.56,445.93,537.63,678.12,822.39,966.66,1110.93,1255.21,1534.54,1692.74,1850.93,2064.5,2301.79,2684.82,2958.06],
+          24: [226.48,349.21,509.64,614.44,774.99,939.88,1104.76,1269.64,1434.52,1753.76,1934.56,2115.35,2359.43,2630.62,3068.36,3380.64],
+          36: [339.72,523.82,764.46,921.65,1162.49,1409.81,1657.14,1904.46,2151.78,2630.65,2901.84,3173.03,3539.14,3945.93,4602.54,5070.95]
+        },
+        todoRiesgo: {
+          12: [149.6,230.68,336.65,405.87,511.93,620.85,729.76,838.68,947.59,1158.47,1277.90,1397.32,1558.55,1737.69,2026.84,2222.02],
+          18: [209.45,322.95,471.31,568.22,716.7,869.19,1021.67,1174.15,1326.63,1621.86,1789.06,1956.25,2181.97,2432.76,2837.58,3110.82],
+          24: [239.37,369.08,538.64,649.40,819.09,993.35,1167.62,1341.88,1516.15,1853.55,2044.64,2235.72,2493.68,2780.30,3242.95,3555.23],
+          36: [359.05,553.63,807.95,974.09,1228.64,1490.03,1751.43,2012.82,2274.22,2780.33,3066.95,3353.58,3740.52,4170.45,4864.42,5332.84]
+        },
+        roboHurto: {
+          12: [69.37,106.96,156.09,188.19,237.36,287.86,338.36,388.86,439.36,547.13,603.54,659.94,736.08,820.69,936.23,1209.47],
+          18: [97.11,149.74,218.53,263.46,332.31,403.01,473.71,544.41,615.11,765.99,844.95,923.92,1030.52,1148.97,1310.72,1693.25],
+          24: [110.99,171.13,249.75,301.1,379.78,460.58,541.38,622.18,702.98,875.41,965.66,1055.9,1177.74,1313.1,1497.96,1935.15],
+          36: [166.48,256.7,374.62,451.65,569.67,690.87,812.07,933.27,1054.47,1313.12,1448.49,1583.85,1766.6,1969.66,2246.94,2902.72]
+        },
+        soloRotura: {
+          12: [82.57,127.31,185.79,224,282.53,342.64,402.75,462.86,522.97,639.93,705.90,771.87,860.93,959.89,1119.24,1119.24],
+          18: [115.59,178.23,260.11,313.60,395.54,479.70,563.85,648,732.16,895.91,988.26,1080.62,1205.31,1343.84,1566.93,1566.93],
+          24: [132.1,203.69,297.27,358.4,452.05,548.22,644.4,740.57,836.75,1023.89,1129.44,1235,1377.49,1535.82,1790.78,1790.78],
+          36: [198.16,305.54,445.9,537.6,678.07,822.34,966.60,1110.86,1255.12,1535.84,1694.17,1852.50,2066.24,2303.73,2686.17,2686.17]
+        },
+        accidentales: {
+          12: [92.00,141.86,207.03,249.6,314.83,381.81,448.79,515.77,582.75,705.29,778,850.71,948.87,1057.93,1248.99,1248.99],
+          18: [128.80,198.61,289.84,349.44,440.76,534.53,628.30,722.07,815.84,987.41,1089.20,1191,1328.41,1481.10,1748.59,1748.59],
+          24: [147.21,226.98,331.25,399.36,503.72,610.89,718.06,825.22,932.39,1128.47,1244.80,1361.14,1518.19,1692.69,1998.39,1998.39],
+          36: [220.81,340.47,496.87,599.04,755.58,916.33,1077.08,1237.84,1398.59,1692.71,1867.21,2041.71,2277.28,2539.03,2997.58,2997.58]
         }
       },
       watch: {
-        ranges: [[250, 450], [450, 650], [650, 900], [900, 1150], [1150, 1400]],
+        ranges: [[0, 575], [576, 775], [776, 1200], [1201, 1500], [1501, 1900], [1901, 2300], [2301, 2700], [2701, 3100], [3101, 3500], [3501, 3900], [3901, 4300], [4301, 4600], [4601, 5200], [5201, 5800], [5801, 9700], [9701, 40000]],
+        accidenteRoboHurto: {
+          12: [132.27,203.95,297.64,358.84,452.61,548.91,645.20,741.50,837.79,1024.24,1129.83,1235.41,1377.96,1536.34,1791.99,1974.37],
+          18: [185.18,285.53,416.70,502.38,633.66,768.47,903.28,1038.10,1172.91,1433.93,1581.76,1729.58,1929.14,2150.88,2508.79,2764.11],
+          24: [211.63,326.32,476.22,574.15,724.18,878.25,1032.32,1186.40,1340.47,1638.78,1807.72,1976.66,2204.73,2458.14,2867.19,3158.99],
+          36: [317.45,489.48,714.34,861.23,1086.27,1317.38,1548.49,1779.59,2010.70,2458.17,2711.58,2964.99,3307.10,3687.22,4300.78,4738.48]
+        },
         todoRiesgo: {
-          12: [45, 70, 95, 110, 130],
-          18: [60, 95, 135, 155, 185],
-          24: [70, 110, 155, 175, 210]
+          12: [139.80,215.55,314.58,379.26,478.37,580.14,681.92,783.69,885.46,1082.52,1194.11,1305.71,1456.36,1623.76,1893.96,2076.33],
+          18: [195.71,301.78,440.41,530.97,669.71,812.20,954.68,1097.16,1239.65,1515.52,1671.76,1827.99,2038.91,2273.26,2651.54,2906.86],
+          24: [223.67,344.89,503.32,606.82,765.39,928.23,1091.06,1253.90,1416.74,1732.03,1910.58,2089.13,2330.18,2598.01,3030.33,3322.13],
+          36: [335.51,517.33,754.98,910.23,1148.08,1392.34,1636.60,1880.85,2125.11,2598.04,2865.87,3133.70,3495.27,3897.02,4545.49,4983.20]
         },
         roboHurto: {
-          12: [15, 25, 35, 45, 55],
-          18: [20, 30, 45, 60, 75],
-          24: [25, 40, 50, 70, 85]
+          12: [64.82,99.94,145.86,175.85,221.80,268.99,316.18,363.37,410.56,511.26,563.97,616.67,687.82,766.88,874.84,1130.17],
+          18: [90.75,139.92,204.20,246.19,310.52,376.59,442.65,508.71,574.78,715.76,789.55,863.34,962.95,1073.63,1224.78,1582.24],
+          24: [103.71,159.91,233.37,281.36,354.88,430.38,505.89,581.39,656.89,818.02,902.34,986.67,1100.52,1227.01,1399.75,1808.27],
+          36: [155.56,239.87,350.06,422.04,532.32,645.58,758.83,872.08,985.34,1227.02,1353.52,1480.01,1650.78,1840.52,2099.63,2712.41]
+        },
+        soloRotura: {
+          12: [77.15,118.96,173.61,209.31,264.01,320.18,376.34,432.51,488.68,597.98,659.62,721.27,804.49,896.95,1045.86,1045.86],
+          18: [108.01,166.55,243.06,293.04,369.61,448.25,526.88,605.52,684.15,837.17,923.47,1009.77,1126.28,1255.74,1464.2,1464.20],
+          24: [123.44,190.34,277.78,334.90,422.41,512.28,602.15,692.02,781.89,956.76,1055.39,1154.03,1287.18,1435.13,1673.37,1673.37],
+          36: [185.17,285.51,416.67,502.35,633.62,768.42,903.22,1038.03,1172.83,1435.14,1583.09,1731.04,1930.77,2152.69,2510.05,2510.05]
+        },
+        accidentales: {
+          12: [85.97,132.56,193.46,233.24,294.18,356.77,419.36,481.95,544.54,659.05,726.99,794.93,886.66,988.57,1167.10,1167.10],
+          18: [120.36,185.58,270.84,326.53,411.86,499.48,587.11,674.73,762.35,922.67,1017.79,1112.91,1241.32,1383.99,1633.94,1633.94],
+          24: [137.55,212.10,309.53,373.18,470.69,570.84,670.98,771.12,871.26,1054.48,1163.19,1271.90,1418.65,1581.71,1867.36,1867.36],
+          36: [206.33,318.14,464.30,559.77,706.04,856.25,1006.47,1156.68,1306.89,1581.72,1744.78,1907.84,2127.97,2372.56,2801.05,2801.05]
+        }
+      },
+      imac: {
+        ranges: [ [0, 2700], [2701, 4600], [4601, 7700], [7701, 11600], [11601, 17400], [17401, 23200], [23201, 40000]],
+        accidenteRoboHurto: {
+          12: [483.89,698.97,1033.55,1392.03,1846.11,2473.44,3088.83],
+          18: [677.44,978.56,1446.98,1948.85,2584.55,3462.82,4324.36],
+          24: [774.22,1118.36,1653.69,2227.25,2953.77,3957.51,4942.13],
+          36: [1161.33,1677.54,2480.53,3340.88,4430.65,5936.26,7413.19]
+        },
+        todoRiesgo: {
+          12: [511.42,738.75,1092.36,1471.24,1951.15,2614.18,3264.59],
+          18: [715.99,1034.24,1529.31,2059.73,2731.61,3659.85,4570.42],
+          24: [818.27,1181.99,1747.78,2353.98,3121.84,4182.69,5223.34],
+          36: [1227.41,1772.99,2621.67,3530.97,4682.76,6274.04,7835.01]
+        },
+        roboHurto: {
+          12: [109.16,206.18,303.21,460.88,679.2,1030.92,1382.65],
+          18: [152.82,288.66,424.50,645.24,950.88,1443.29,1935.71],
+          24: [174.65,329.90,485.14,737.41,1086.72,1649.48,2212.24],
+          36: [261.98,494.84,727.71,1106.12,1630.07,2474.22,3318.36]
+        },
+        soloRotura: {
+          12: [322.57,406.22,603.38,734.82,872.24,1003.68,1141.10],
+          18: [451.60,568.70,844.73,1028.75,1221.13,1405.15,1597.54],
+          24: [516.11,649.95,965.41,1175.71,1395.58,1605.89,1825.76],
+          36: [774.17,974.92,1448.11,1763.57,2093.37,2408.83,2738.63]
+        },
+        accidentales: {
+          12: [374.73,492.79,730.34,931.15,1166.91,1442.52,1706.18],
+          18: [524.62,689.90,1022.48,1303.61,1633.67,2019.53,2388.65],
+          24: [599.57,788.46,1168.54,1489.84,1867.05,2308.03,2729.89],
+          36: [899.35,1182.69,1752.82,2234.76,2800.58,3462.04,4094.83]
         }
       }
     };
 
-    DB.macbook = DB.mac;
-    DB.imac = DB.mac;
+  
     DB.otrosGamaGris = DB.mac;
     DB.iwatch = DB.watch;
     DB.airpods = {
@@ -1550,13 +1662,14 @@
     };
 
     const EXT_GARANTIA = {
-      ranges: [[0, 50], [50, 100], [100, 250], [250, 500], [500, 1000], [1000, 1500], [1500, 2000], [2000, 2500], [2500, 3000], [3000, 5001]],
+      ranges: [[0, 200], [201, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 40000]],
       celulares: {
-        12: [null, null, 13.33, 26.67, 33.33, 40.00, 46.67, 50.00, null, null],
-        24: [null, null, 20.00, 40.00, 50.00, 60.00, 70.00, 75.00, null, null]
+        12: [79.32,158.63,198.29,237.95,277.61,297.44],
+        24: [118.98,237.95,297.44,356.93,416.41,446.16]
       },
       resto: {
-        36: [6.00, 10.00, 20.00, 40.00, 50.00, 60.00, 70.00, 75.00, 85.00, 110.00]
+        ranges: [[0, 400], [401, 800], [801, 2000], [2001, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 20300], [20301, 24400], [24401, 40000]],
+        36: [35.69,59.49,118.98,237.95,297.44,356.93,416.41,446.16,505.65,654.37]
       }
     };
 
@@ -1586,7 +1699,7 @@
       return -1;
     }
 
-    function fmt(n) { return '$' + n.toFixed(2); }
+    function fmt(n) { return 'Q' + n.toFixed(2); }
 
     const DEVICE_OPTIONS = [
       { id: 'iphone', label: 'iPhone', icon: 'phone' },
@@ -1625,74 +1738,88 @@
 
     const COVERAGE_CARDS_BY_DEVICE = {
       iphone: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
-      ],
-      ipad: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
-      ],
-      iwatch: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.iphone.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.accidenteRoboHurto },
+        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.accidentales },
+        { key: 'todoRiesgo', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.roboHurto },
+        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.soloRotura }
       ],
       macbook: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.mac.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.mac.accidenteRoboHurto },
+        { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.mac.accidentales },
+        { key: 'todoRiesgo', title: 'Solo Robo', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.mac.soloRobo },
+        { key: 'danoAccidental', title: 'Solo Rotura', desc: 'Cobertura de pantalla', recommended: false, months: [36, 24, 18, 12], values: DB.mac.soloRotura }
+      ],
+      ipad: [
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.ipad.accidenteRoboHurto },
+        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.accidentales },
+        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.roboHurto },
+        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.soloRotura }
+      ],
+      iwatch: [
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.iwatch.accidenteRoboHurto },
+        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.accidentales },
+        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.roboHurto },
+        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.soloRotura }
       ],
       imac: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.imac.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.imac.accidenteRoboHurto },
+        { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.imac.accidentales },
+        { key: 'todoRiesgo', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.imac.roboHurto },
+        { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.imac.soloRotura }
       ],
       airpods: [],
       accesoriosElectronicos: [],
-      otrosGamaGris: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
-      ],
+      otrosGamaGris: [],
       watch: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [24, 18, 12] },
-        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [24, 18, 12] },
-        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [24, 18, 12] }
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo + Hurto + Sobretensión', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
+        { key: 'roboHurto', title: 'Robo + Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.watch.roboHurto },
+        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo }
       ]
     };
 
-    const WARRANTY_CARD_BY_DEVICE = {
-      iphone: { title: 'Garantía Extendida 1 Año', desc: 'Extensión de garantía del fabricante', months: 12, source: 'celulares' },
-      ipad: { title: 'Garantía Extendida 1 Año', desc: 'Extensión de garantía del fabricante', months: 12, source: 'celulares' },
-      iwatch: { title: 'Garantía Extendida 1 Año', desc: 'Extensión de garantía del fabricante', months: 12, source: 'celulares' },
-      macbook: { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' },
-      imac: { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' },
-      airpods: { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' },
-      accesoriosElectronicos: { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' },
-      otrosGamaGris: { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+    const WARRANTY_CARDS_BY_DEVICE = {
+      iphone: [
+        { title: 'Garantía Extendida 1 Año', desc: 'Extensión de garantía del fabricante', months: 12, source: 'celulares' },
+        { title: 'Garantía Extendida 2 Años', desc: 'Extensión de garantía del fabricante', months: 24, source: 'celulares' }
+      ],
+      ipad: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      iwatch: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      macbook: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      imac: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      airpods: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      accesoriosElectronicos: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ],
+      otrosGamaGris: [
+        { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
+      ]
     };
+
+    const DEVICES_WITH_RANGE_COVERAGE = ['iphone', 'macbook', 'ipad', 'iwatch', 'imac'];
 
     const CARD_THEMES = {
       'Todo Riesgo': { borderColor: 'rgba(254,80,0,0.25)', headerGrad: 'linear-gradient(135deg,#FE5000 0%,#c23d00 100%)', accentBg: '#FE5000', lightBg: 'rgba(254,80,0,0.07)', highlightBorder: 'rgba(254,80,0,0.35)', iconColor: '#FE5000', shadowColor: 'rgba(254,80,0,0.1)' },
       'Robo y Hurto': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
       'Daño Accidental': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
       'Garantía Extendida 1 Año': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
+      'Garantía Extendida 2 Años': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
       'Garantía Extendida 3 Años': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
       'Ext. Garantia': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' }
     };
@@ -1702,6 +1829,7 @@
       'Robo y Hurto': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
       'Daño Accidental': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
       'Garantía Extendida 1 Año': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
+      'Garantía Extendida 2 Años': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
       'Garantía Extendida 3 Años': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
       'Ext. Garantia': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>'
     };
@@ -1743,10 +1871,15 @@
     }
 
     function buildCoverageCard(def, data, rangeIdx) {
-      var source = data[def.key];
+      var source = def.values || data[def.key];
       if (!source) return null;
 
       var plans = def.months.map(function (month) {
+        if (month === 36 && (!source[36] || source[36][rangeIdx] === undefined || source[36][rangeIdx] === null)) {
+          var base24 = source[24] && source[24][rangeIdx] !== undefined && source[24][rangeIdx] !== null ? source[24][rangeIdx] : null;
+          if (base24 !== null) return { m: 36, p: Number((base24 * 1.5).toFixed(2)) };
+        }
+
         return source[month] && source[month][rangeIdx] !== undefined && source[month][rangeIdx] !== null
           ? { m: month, p: source[month][rangeIdx] }
           : null;
@@ -1756,21 +1889,40 @@
       return buildCard(def.title, def.desc, def.recommended, plans);
     }
 
-    function buildWarrantyCard(dev, val) {
-      var warranty = WARRANTY_CARD_BY_DEVICE[dev];
-      if (!warranty) return null;
+    function findWarrantyRange(ranges, value) {
+      for (var i = 0; i < ranges.length; i++) {
+        if (value >= ranges[i][0] && value <= ranges[i][1]) return i;
+      }
+      return -1;
+    }
 
-      var egRangeIdx = findRange(EXT_GARANTIA.ranges, val);
-      if (egRangeIdx < 0) return null;
+    function buildWarrantyCards(dev, val) {
+      var warranties = WARRANTY_CARDS_BY_DEVICE[dev] || [];
+      if (warranties.length === 0) return [];
 
+      return warranties.map(function (warranty) {
+        var sourceGroup = warranty.source === 'celulares' ? EXT_GARANTIA.celulares : EXT_GARANTIA.resto;
+        var sourceRanges = sourceGroup.ranges || EXT_GARANTIA.ranges;
+        var warrantyRangeIdx = findWarrantyRange(sourceRanges, val);
+        if (warrantyRangeIdx < 0) return null;
+
+        var priceSeries = sourceGroup[warranty.months];
+        if (!priceSeries) return null;
+
+        var price = priceSeries[warrantyRangeIdx];
+        if (price === null || price === undefined) return null;
+
+        return buildCard(warranty.title, warranty.desc, false, [{ m: warranty.months, p: price }]);
+      }).filter(function (card) { return card !== null; });
+    }
+
+    function getWarrantyRanges(dev) {
+      var warranties = WARRANTY_CARDS_BY_DEVICE[dev] || [];
+      if (warranties.length === 0) return null;
+
+      var warranty = warranties[0];
       var sourceGroup = warranty.source === 'celulares' ? EXT_GARANTIA.celulares : EXT_GARANTIA.resto;
-      var priceSeries = sourceGroup[warranty.months];
-      if (!priceSeries) return null;
-
-      var price = priceSeries[egRangeIdx];
-      if (price === null || price === undefined) return null;
-
-      return buildCard(warranty.title, warranty.desc, false, [{ m: warranty.months, p: price }]);
+      return sourceGroup.ranges || EXT_GARANTIA.ranges;
     }
 
     function calculate() {
@@ -1787,23 +1939,27 @@
       var cards = [];
       var dev = currentDevice;
       var data = DB[dev];
-      var rangeIdx = findRange(data.ranges, val);
+      var hasRangeCoverage = DEVICES_WITH_RANGE_COVERAGE.indexOf(dev) !== -1;
+      var activeRanges = hasRangeCoverage ? data.ranges : (getWarrantyRanges(dev) || data.ranges);
+      var rangeIdx = hasRangeCoverage ? findRange(activeRanges, val) : findWarrantyRange(activeRanges, val);
 
       if (rangeIdx >= 0) {
         rangeInd.classList.remove('hidden');
-        document.getElementById('rangeText').textContent = 'Rango detectado: $' + data.ranges[rangeIdx][0] + ' - $' + data.ranges[rangeIdx][1];
+        document.getElementById('rangeText').textContent = 'Rango detectado: Q' + activeRanges[rangeIdx][0] + ' - Q' + activeRanges[rangeIdx][1];
 
-        var warrantyCard = buildWarrantyCard(dev, val);
-        if (warrantyCard) cards.push(warrantyCard);
+        var warrantyCards = buildWarrantyCards(dev, val);
+        cards = cards.concat(warrantyCards);
 
-        var coverageCards = COVERAGE_CARDS_BY_DEVICE[dev] || [];
-        coverageCards.forEach(function (def) {
-          var card = buildCoverageCard(def, data, rangeIdx);
-          if (card) cards.push(card);
-        });
+        if (hasRangeCoverage) {
+          var coverageCards = COVERAGE_CARDS_BY_DEVICE[dev] || [];
+          coverageCards.forEach(function (def) {
+            var card = buildCoverageCard(def, data, rangeIdx);
+            if (card) cards.push(card);
+          });
+        }
       } else {
         rangeInd.classList.remove('hidden');
-        document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: $' + data.ranges[0][0] + ' - $' + data.ranges[data.ranges.length - 1][1];
+        document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: Q' + activeRanges[0][0] + ' - Q' + activeRanges[activeRanges.length - 1][1];
       }
 
       if (cards.length === 0) {
