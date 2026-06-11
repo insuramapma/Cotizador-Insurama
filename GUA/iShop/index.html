@@ -1853,7 +1853,7 @@
         var priceDisplay = showMonthly
           ? '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:400;color:#818181">/mes</span><div style="font-size:10px;color:#818181;margin-top:2px">Total: ' + fmt(total) + '</div></div>'
           : '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(total) + '</span></div>';
-        var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + t.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">Recomendado</div>' : '';
+        var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + t.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">RECOMENDADO</div>' : '';
         return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:1.5px solid ' + rowBorder + ';border-radius:12px;padding:12px 14px;"><div><div style="font-size:12px;font-weight:500;color:#070200;letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
       }).join('');
 
