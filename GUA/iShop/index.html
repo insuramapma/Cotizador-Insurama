@@ -189,6 +189,7 @@
     input:where([type=reset]),
     input:where([type=submit]) {
       -webkit-appearance: button;
+      appearance: button;
       background-color: initial;
       background-image: none
     }
@@ -212,6 +213,7 @@
 
     [type=search] {
       -webkit-appearance: textfield;
+      appearance: textfield;
       outline-offset: -2px
     }
 
@@ -298,8 +300,7 @@
     object,
     svg,
     video {
-      display: block;
-      vertical-align: middle
+      display: block
     }
 
     img,
@@ -1091,6 +1092,7 @@
 
     input[type="number"] {
       -moz-appearance: textfield;
+      appearance: textfield;
     }
 
     @keyframes pulse-glow {
@@ -1284,11 +1286,11 @@
             <div class="grid gap-2" id="deviceGrid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr));"></div>
           </div> <!-- Value Input -->
           <div class="md:col-span-4"> <label class="section-label mb-3 block">Precio de Lista (Quetzales)</label>
-            <div class="relative"> <span class="absolute left-4 top-1/2 -translate-y-1/2 font-normal text-base"
-                style="color:#818181">Q</span> <input id="priceInput" type="number" min="0" step="1"
+              <div class="relative"> <span class="absolute left-4 top-1/2 -translate-y-1/2 font-normal text-base"
+                style="color:#818181">Q</span> <input id="priceInput" type="text" inputmode="numeric" autocomplete="off"
                 placeholder="Precio del dispositivo"
                 class="w-full rounded-xl py-4 pl-10 pr-4 text-base font-normal transition-all"
-                style="background:#f5f5f7;border:1.5px solid #e5e7eb;color:#070200" oninput="calculate()"> </div>
+                    style="background:#f5f5f7;border:1.5px solid #e5e7eb;color:#070200"> </div>
           </div> <!-- Monthly Toggle -->
           <div class="md:col-span-3">
             <div class="flex items-center justify-between py-4 px-5 rounded-xl"
@@ -1731,6 +1733,7 @@
     };
 
   
+  DB.macbook = DB.mac;
     DB.otrosGamaGris = DB.mac;
     DB.iwatch = DB.watch;
     DB.airpods = {
@@ -1782,7 +1785,52 @@
       return -1;
     }
 
-    function fmt(n) { return 'Q' + n.toFixed(2); }
+    function formatThousands(n, decimals) {
+      return Number(n).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function fmt(n) { return 'Q' + formatThousands(n, 2); }
+
+    function parsePriceInput(value) {
+      var normalized = String(value || '').replace(/[^\d.]/g, '');
+      var firstDot = normalized.indexOf('.');
+      if (firstDot !== -1) {
+        normalized = normalized.slice(0, firstDot + 1) + normalized.slice(firstDot + 1).replace(/\./g, '');
+      }
+      return normalized;
+    }
+
+    function handlePriceInput(input) {
+      var normalized = parsePriceInput(input.value);
+      if (!normalized) {
+        input.value = '';
+        calculate();
+        return;
+      }
+
+      var parts = normalized.split('.');
+      var integerPart = parts[0] ? Number(parts[0]).toLocaleString('en-US') : '0';
+      input.value = parts.length > 1 ? integerPart + '.' + parts[1] : integerPart;
+      calculate();
+    }
+
+    function bindRealtimePriceCalculation() {
+      var priceInput = document.getElementById('priceInput');
+      if (!priceInput) return;
+
+      var syncPrice = function () {
+        handlePriceInput(priceInput);
+      };
+
+      priceInput.addEventListener('input', syncPrice);
+      priceInput.addEventListener('change', syncPrice);
+      priceInput.addEventListener('paste', function () {
+        setTimeout(syncPrice, 0);
+      });
+    }
 
     const DEVICE_OPTIONS = [
       { id: 'iphone', label: 'iPhone', icon: 'phone' },
@@ -2016,7 +2064,7 @@
     }
 
     function calculate() {
-      var val = parseFloat(document.getElementById('priceInput').value);
+      var val = parseFloat(parsePriceInput(document.getElementById('priceInput').value));
       var container = document.getElementById('cardsContainer');
       var rangeInd = document.getElementById('rangeIndicator');
 
@@ -2029,13 +2077,18 @@
       var cards = [];
       var dev = currentDevice;
       var data = DB[dev];
+      if (!data || !data.ranges) {
+        container.innerHTML = '<div class="rounded-[20px] p-10 text-center col-span-full" style="background:#fff;border:1px solid #f0f0f0"><p class="font-medium" style="color:#070200">No se encontraron planes para este dispositivo</p><p class="text-xs mt-1" style="color:#524C4A">Selecciona otro dispositivo o verifica la configuracion</p></div>';
+        rangeInd.classList.add('hidden');
+        return;
+      }
       var hasRangeCoverage = DEVICES_WITH_RANGE_COVERAGE.indexOf(dev) !== -1;
       var activeRanges = hasRangeCoverage ? data.ranges : (getWarrantyRanges(dev) || data.ranges);
       var rangeIdx = hasRangeCoverage ? findRange(activeRanges, val) : findWarrantyRange(activeRanges, val);
 
       if (rangeIdx >= 0) {
         rangeInd.classList.remove('hidden');
-        document.getElementById('rangeText').textContent = 'Rango detectado: Q' + activeRanges[rangeIdx][0] + ' - Q' + activeRanges[rangeIdx][1];
+        document.getElementById('rangeText').textContent = 'Rango detectado: Q' + formatThousands(activeRanges[rangeIdx][0], 0) + ' - Q' + formatThousands(activeRanges[rangeIdx][1], 0);
 
         var warrantyCards = buildWarrantyCards(dev, val);
         cards = cards.concat(warrantyCards);
@@ -2049,7 +2102,7 @@
         }
       } else {
         rangeInd.classList.remove('hidden');
-        document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: Q' + activeRanges[0][0] + ' - Q' + activeRanges[activeRanges.length - 1][1];
+        document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: Q' + formatThousands(activeRanges[0][0], 0) + ' - Q' + formatThousands(activeRanges[activeRanges.length - 1][1], 0);
       }
 
       if (cards.length === 0) {
@@ -2070,6 +2123,7 @@
     }, { threshold: 0.1 });
 
     renderDeviceGrid();
+    bindRealtimePriceCalculation();
     document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
     window.addEventListener('scroll', function () {
