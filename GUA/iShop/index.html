@@ -1869,8 +1869,7 @@
 
     const WARRANTY_CARDS_BY_DEVICE = {
       iphone: [
-        { title: 'Garantía Extendida 1 Año', desc: 'Extensión de garantía del fabricante', months: 12, source: 'celulares' },
-        { title: 'Garantía Extendida 2 Años', desc: 'Extensión de garantía del fabricante', months: 24, source: 'celulares' }
+        { title: 'Garantía Extendida', desc: 'Extensión de garantía del fabricante', months: [24, 12], source: 'celulares' }
       ],
       ipad: [
         { title: 'Garantía Extendida 3 Años', desc: 'Extensión de garantía del fabricante', months: 36, source: 'resto' }
@@ -1901,6 +1900,7 @@
       'Todo Riesgo': { borderColor: 'rgba(254,80,0,0.25)', headerGrad: 'linear-gradient(135deg,#FE5000 0%,#c23d00 100%)', accentBg: '#FE5000', lightBg: 'rgba(254,80,0,0.07)', highlightBorder: 'rgba(254,80,0,0.35)', iconColor: '#FE5000', shadowColor: 'rgba(254,80,0,0.1)' },
       'Robo y Hurto': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
       'Daño Accidental': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
+      'Garantía Extendida': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
       'Garantía Extendida 1 Año': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
       'Garantía Extendida 2 Años': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
       'Garantía Extendida 3 Años': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' },
@@ -1911,6 +1911,7 @@
       'Todo Riesgo': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2L4 5.5V12c0 5 3.5 9.7 8 11 4.5-1.3 8-6 8-11V5.5L12 2z"/></svg>',
       'Robo y Hurto': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
       'Daño Accidental': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+      'Garantía Extendida': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
       'Garantía Extendida 1 Año': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
       'Garantía Extendida 2 Años': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
       'Garantía Extendida 3 Años': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>',
@@ -1989,13 +1990,19 @@
         var warrantyRangeIdx = findWarrantyRange(sourceRanges, val);
         if (warrantyRangeIdx < 0) return null;
 
-        var priceSeries = sourceGroup[warranty.months];
-        if (!priceSeries) return null;
+        var monthList = Array.isArray(warranty.months) ? warranty.months : [warranty.months];
+        var plans = monthList.map(function (month) {
+          var priceSeries = sourceGroup[month];
+          if (!priceSeries) return null;
 
-        var price = priceSeries[warrantyRangeIdx];
-        if (price === null || price === undefined) return null;
+          var price = priceSeries[warrantyRangeIdx];
+          if (price === null || price === undefined) return null;
 
-        return buildCard(warranty.title, warranty.desc, false, [{ m: warranty.months, p: price }]);
+          return { m: month, p: price };
+        }).filter(function (plan) { return plan !== null; });
+
+        if (plans.length === 0) return null;
+        return buildCard(warranty.title, warranty.desc, false, plans);
       }).filter(function (card) { return card !== null; });
     }
 
