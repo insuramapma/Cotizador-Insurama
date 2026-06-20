@@ -1099,11 +1099,11 @@
 
       0%,
       100% {
-        box-shadow: 0 8px 32px rgba(254, 80, 0, 0.15), 0 0 0 2px rgba(254, 80, 0, 0.12);
+        box-shadow: 0 10px 34px rgba(115, 125, 142, 0.2), 0 0 0 2px rgba(141, 151, 167, 0.24);
       }
 
       50% {
-        box-shadow: 0 12px 40px rgba(254, 80, 0, 0.28), 0 0 0 2px rgba(254, 80, 0, 0.22);
+        box-shadow: 0 14px 42px rgba(115, 125, 142, 0.28), 0 0 0 2px rgba(141, 151, 167, 0.34);
       }
     }
 
@@ -1812,31 +1812,31 @@
 
     const COVERAGE_CARDS_BY_DEVICE = {
       iphone: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.iphone.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.iphone.todoRiesgo },
         { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.accidentales },
         { key: 'todoRiesgo', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.roboHurto },
         { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.iphone.soloRotura }
       ],
       macbook: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.mac.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.mac.todoRiesgo },
         { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.mac.accidentales },
         { key: 'todoRiesgo', title: 'Solo Robo', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.mac.soloRobo },
         { key: 'danoAccidental', title: 'Solo Rotura', desc: 'Cobertura de pantalla', recommended: false, months: [36, 24, 18, 12], values: DB.mac.soloRotura }
       ],
       ipad: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.ipad.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.ipad.todoRiesgo },
         { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.accidentales },
         { key: 'roboHurto', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.roboHurto },
         { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.ipad.soloRotura }
       ],
       iwatch: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.iwatch.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.iwatch.todoRiesgo },
         { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.accidentales },
         { key: 'roboHurto', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.roboHurto },
         { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.iwatch.soloRotura }
       ],
       imac: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.imac.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: true, months: [36, 24, 18, 12], values: DB.imac.todoRiesgo },
         { key: 'danoAccidental', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.imac.accidentales },
         { key: 'todoRiesgo', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.imac.roboHurto },
         { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.imac.soloRotura }
@@ -1845,7 +1845,7 @@
       // accesoriosElectronicos: [],
       // otrosGamaGris: [],
       watch: [
-        { key: 'todoRiesgo', title: 'Daños Accidentales + Robo & Hurto', desc: 'Protección contra eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección contra Daños Accidentales,  Robo & Hurto y Eventos eléctricos', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
         { key: 'todoRiesgo', title: 'Daños Accidentales (roturas + daños por líquidos)', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo },
         { key: 'roboHurto', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.watch.roboHurto },
         { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.watch.todoRiesgo }
@@ -1920,15 +1920,19 @@
         var total = p.p;
         var monthly = total / p.m;
         var isHighlight = p.m === 36;
-        var rowBg = isHighlight ? theme.lightBg : '#f8f8f8';
+        var rowBg = isHighlight ? 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, ' + theme.lightBg + ' 100%)' : '#f8f8f8';
         var rowBorder = isHighlight ? theme.highlightBorder : '#e5e7eb';
         var tariffColor = theme.tariffTextColor;
         var periodLabel = p.m === 12 ? '12 meses' : p.m === 18 ? '18 meses' : p.m === 24 ? '24 meses' : '36 meses';
+        var priceFont = isHighlight ? '24px' : '20px';
+        var labelWeight = isHighlight ? '700' : '500';
+        var rowShadow = isHighlight ? '0 10px 22px ' + theme.shadowColor : 'none';
+        var rowTransform = isHighlight ? 'translateY(-2px) scale(1.01)' : 'none';
         var priceDisplay = showMonthly
-          ? '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + tariffColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:500;color:' + tariffColor + '">/mes</span></div>'
-          : '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + tariffColor + ';line-height:1">' + fmt(total) + '</span></div>';
-        var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + theme.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">RECOMENDADO</div>' : '';
-        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:1.5px solid ' + rowBorder + ';border-radius:12px;padding:12px 14px;"><div><div style="font-size:12px;font-weight:500;color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
+          ? '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:600;color:' + tariffColor + '">/mes</span></div>'
+          : '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(total) + '</span></div>';
+        var highlight = isHighlight ? '<div style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:' + theme.accentBg + ';margin-top:6px;padding:4px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:0.08em">RECOMENDADA</div>' : '';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:' + (isHighlight ? '2px' : '1.5px') + ' solid ' + rowBorder + ';border-radius:14px;padding:' + (isHighlight ? '14px 16px' : '12px 14px') + ';box-shadow:' + rowShadow + ';transform:' + rowTransform + ';"><div><div style="font-size:' + (isHighlight ? '13px' : '12px') + ';font-weight:' + labelWeight + ';color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
       }).join('');
 
       var extraClass = recommended ? 'recommended-pulse' : '';
