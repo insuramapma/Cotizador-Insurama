@@ -1879,35 +1879,37 @@
     };
 
     function buildCard(title, desc, recommended, plans) {
-      var isGoldCard = /Daños Accidentales\s*\+\s*Robo(?:\s*\+|\s*&)\s*Hurto/i.test(title);
-      var theme = isGoldCard
+      var isSilverCard = !!recommended;
+      var theme = isSilverCard
         ? {
-          borderColor: 'rgba(191, 144, 37, 0.45)',
-          headerGrad: 'linear-gradient(135deg,#dde2ea 0%,#a5afbf 55%,#7d889a 100%)',
-          accentBg: '#8d6b16',
-          lightBg: 'rgba(216, 172, 61, 0.14)',
-          highlightBorder: 'rgba(166, 123, 23, 0.5)',
-          iconColor: '#7d5f15',
-          shadowColor: 'rgba(168, 125, 29, 0.2)',
-          titleColor: '#fffdf7',
-          descColor: 'rgba(255, 249, 230, 0.9)',
-          logo: 'img/iShop Care Garantia Extendia II.png',
-          logoAlt: 'Logo iShop Care Garantia Extendia II',
-          logoMax: '210px'
-        }
-        : {
           borderColor: 'rgba(141, 151, 167, 0.4)',
-          headerGrad: 'linear-gradient(135deg,#f2d16b 0%,#c89a2a 54%,#8d6b16 100%)',
+          headerGrad: 'linear-gradient(135deg,#dde2ea 0%,#a5afbf 55%,#7d889a 100%)',
           accentBg: '#667285',
           lightBg: 'rgba(182, 191, 206, 0.16)',
           highlightBorder: 'rgba(130, 145, 166, 0.46)',
           iconColor: '#4e5d73',
-          shadowColor: 'rgba(115, 125, 142, 0.16)',
+          tariffTextColor: '#4e5d73',
+          shadowColor: 'rgba(115, 125, 142, 0.24)',
           titleColor: '#ffffff',
           descColor: 'rgba(241, 245, 255, 0.9)',
-          logo: 'img/iShop Care II.png',
+          logo: 'img/iShop Care Platinum II.png',
           logoAlt: 'Logo iShop Care II',
           logoMax: '190px'
+        }
+        : {
+          borderColor: 'rgba(191, 144, 37, 0.45)',
+          headerGrad: 'linear-gradient(135deg,#f2d16b 0%,#c89a2a 54%,#8d6b16 100%)',
+          accentBg: '#8d6b16',
+          lightBg: 'rgba(216, 172, 61, 0.14)',
+          highlightBorder: 'rgba(166, 123, 23, 0.5)',
+          iconColor: '#7d5f15',
+          tariffTextColor: '#7d5f15',
+          shadowColor: 'rgba(168, 125, 29, 0.24)',
+          titleColor: '#fffdf7',
+          descColor: 'rgba(255, 249, 230, 0.9)',
+          logo: 'img/iShop Care Gold II.png',
+          logoAlt: 'Logo iShop Care Garantia Extendia II',
+          logoMax: '210px'
         };
 
       var recBadge = recommended
@@ -1920,13 +1922,13 @@
         var isHighlight = p.m === 36;
         var rowBg = isHighlight ? theme.lightBg : '#f8f8f8';
         var rowBorder = isHighlight ? theme.highlightBorder : '#e5e7eb';
-        var priceColor = isHighlight ? theme.iconColor : '#070200';
+        var tariffColor = theme.tariffTextColor;
         var periodLabel = p.m === 12 ? '12 meses' : p.m === 18 ? '18 meses' : p.m === 24 ? '24 meses' : '36 meses';
         var priceDisplay = showMonthly
-          ? '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:400;color:#818181">/mes</span></div>'
-          : '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(total) + '</span></div>';
+          ? '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + tariffColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:500;color:' + tariffColor + '">/mes</span></div>'
+          : '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + tariffColor + ';line-height:1">' + fmt(total) + '</span></div>';
         var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + theme.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">RECOMENDADO</div>' : '';
-        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:1.5px solid ' + rowBorder + ';border-radius:12px;padding:12px 14px;"><div><div style="font-size:12px;font-weight:500;color:#070200;letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:1.5px solid ' + rowBorder + ';border-radius:12px;padding:12px 14px;"><div><div style="font-size:12px;font-weight:500;color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
       }).join('');
 
       var extraClass = recommended ? 'recommended-pulse' : '';
