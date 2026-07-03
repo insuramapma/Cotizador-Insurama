@@ -1,0 +1,1679 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Insurama | Cotizador de Seguros</title>
+  <style>
+    *,
+    ::backdrop,
+    :after,
+    :before {
+      --tw-border-spacing-x: 0;
+      --tw-border-spacing-y: 0;
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-rotate: 0;
+      --tw-skew-x: 0;
+      --tw-skew-y: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-pan-x: ;
+      --tw-pan-y: ;
+      --tw-pinch-zoom: ;
+      --tw-scroll-snap-strictness: proximity;
+      --tw-gradient-from-position: ;
+      --tw-gradient-via-position: ;
+      --tw-gradient-to-position: ;
+      --tw-ordinal: ;
+      --tw-slashed-zero: ;
+      --tw-numeric-figure: ;
+      --tw-numeric-spacing: ;
+      --tw-numeric-fraction: ;
+      --tw-ring-inset: ;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-color: #3b82f680;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-colored: 0 0 #0000;
+      --tw-blur: ;
+      --tw-brightness: ;
+      --tw-contrast: ;
+      --tw-grayscale: ;
+      --tw-hue-rotate: ;
+      --tw-invert: ;
+      --tw-saturate: ;
+      --tw-sepia: ;
+      --tw-drop-shadow: ;
+      --tw-backdrop-blur: ;
+      --tw-backdrop-brightness: ;
+      --tw-backdrop-contrast: ;
+      --tw-backdrop-grayscale: ;
+      --tw-backdrop-hue-rotate: ;
+      --tw-backdrop-invert: ;
+      --tw-backdrop-opacity: ;
+      --tw-backdrop-saturate: ;
+      --tw-backdrop-sepia: ;
+      --tw-contain-size: ;
+      --tw-contain-layout: ;
+      --tw-contain-paint: ;
+      --tw-contain-style:
+    }
+
+    /*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/
+    *,
+    :after,
+    :before {
+      box-sizing: border-box;
+      border: 0 solid #e5e7eb
+    }
+
+    :after,
+    :before {
+      --tw-content: ""
+    }
+
+    :host,
+    html {
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      -moz-tab-size: 4;
+      -o-tab-size: 4;
+      tab-size: 4;
+      font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-feature-settings: normal;
+      font-variation-settings: normal;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    body {
+      margin: 0;
+      line-height: inherit
+    }
+
+    hr {
+      height: 0;
+      color: inherit;
+      border-top-width: 1px
+    }
+
+    abbr:where([title]) {
+      -webkit-text-decoration: underline dotted;
+      text-decoration: underline dotted
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: inherit;
+      font-weight: inherit
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit
+    }
+
+    b,
+    strong {
+      font-weight: bolder
+    }
+
+    code,
+    kbd,
+    pre,
+    samp {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+      font-feature-settings: normal;
+      font-variation-settings: normal;
+      font-size: 1em
+    }
+
+    small {
+      font-size: 80%
+    }
+
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: initial
+    }
+
+    sub {
+      bottom: -.25em
+    }
+
+    sup {
+      top: -.5em
+    }
+
+    table {
+      text-indent: 0;
+      border-color: inherit;
+      border-collapse: collapse
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-feature-settings: inherit;
+      font-variation-settings: inherit;
+      font-size: 100%;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+      margin: 0;
+      padding: 0
+    }
+
+    button,
+    select {
+      text-transform: none
+    }
+
+    button,
+    input:where([type=button]),
+    input:where([type=reset]),
+    input:where([type=submit]) {
+      -webkit-appearance: button;
+      background-color: initial;
+      background-image: none
+    }
+
+    :-moz-focusring {
+      outline: auto
+    }
+
+    :-moz-ui-invalid {
+      box-shadow: none
+    }
+
+    progress {
+      vertical-align: initial
+    }
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      height: auto
+    }
+
+    [type=search] {
+      -webkit-appearance: textfield;
+      outline-offset: -2px
+    }
+
+    ::-webkit-search-decoration {
+      -webkit-appearance: none
+    }
+
+    ::-webkit-file-upload-button {
+      -webkit-appearance: button;
+      font: inherit
+    }
+
+    summary {
+      display: list-item
+    }
+
+    blockquote,
+    dd,
+    dl,
+    figure,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    pre {
+      margin: 0
+    }
+
+    fieldset {
+      margin: 0
+    }
+
+    fieldset,
+    legend {
+      padding: 0
+    }
+
+    menu,
+    ol,
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    dialog {
+      padding: 0
+    }
+
+    textarea {
+      resize: vertical
+    }
+
+    input::-moz-placeholder,
+    textarea::-moz-placeholder {
+      opacity: 1;
+      color: #9ca3af
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      opacity: 1;
+      color: #9ca3af
+    }
+
+    [role=button],
+    button {
+      cursor: pointer
+    }
+
+    :disabled {
+      cursor: default
+    }
+
+    audio,
+    canvas,
+    embed,
+    iframe,
+    img,
+    object,
+    svg,
+    video {
+      display: block;
+      vertical-align: middle
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      height: auto
+    }
+
+    [hidden]:where(:not([hidden=until-found])) {
+      display: none
+    }
+
+    .pointer-events-none {
+      pointer-events: none
+    }
+
+    .absolute {
+      position: absolute
+    }
+
+    .relative {
+      position: relative
+    }
+
+    .sticky {
+      position: sticky
+    }
+
+    .inset-0 {
+      inset: 0
+    }
+
+    .left-4 {
+      left: 1rem
+    }
+
+    .top-0 {
+      top: 0
+    }
+
+    .top-1\/2 {
+      top: 50%
+    }
+
+    .z-10 {
+      z-index: 10
+    }
+
+    .z-50 {
+      z-index: 50
+    }
+
+    .col-span-full {
+      grid-column: 1/-1
+    }
+
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .mb-0\.5 {
+      margin-bottom: .125rem
+    }
+
+    .mb-1 {
+      margin-bottom: .25rem
+    }
+
+    .mb-10 {
+      margin-bottom: 2.5rem
+    }
+
+    .mb-2 {
+      margin-bottom: .5rem
+    }
+
+    .mb-3 {
+      margin-bottom: .75rem
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem
+    }
+
+    .mb-5 {
+      margin-bottom: 1.25rem
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem
+    }
+
+    .mb-7 {
+      margin-bottom: 1.75rem
+    }
+
+    .mb-8 {
+      margin-bottom: 2rem
+    }
+
+    .mt-1 {
+      margin-top: .25rem
+    }
+
+    .mt-1\.5 {
+      margin-top: .375rem
+    }
+
+    .mt-5 {
+      margin-top: 1.25rem
+    }
+
+    .mt-auto {
+      margin-top: auto
+    }
+
+    .block {
+      display: block
+    }
+
+    .flex {
+      display: flex
+    }
+
+    .inline-flex {
+      display: inline-flex
+    }
+
+    .grid {
+      display: grid
+    }
+
+    .hidden {
+      display: none
+    }
+
+    .h-1 {
+      height: .25rem
+    }
+
+    .h-10 {
+      height: 2.5rem
+    }
+
+    .h-2 {
+      height: .5rem
+    }
+
+    .h-9 {
+      height: 2.25rem
+    }
+
+    .h-px {
+      height: 1px
+    }
+
+    .min-h-screen {
+      min-height: 100vh
+    }
+
+    .w-10 {
+      width: 2.5rem
+    }
+
+    .w-2 {
+      width: .5rem
+    }
+
+    .w-9 {
+      width: 2.25rem
+    }
+
+    .w-auto {
+      width: auto
+    }
+
+    .w-full {
+      width: 100%
+    }
+
+    .max-w-6xl {
+      max-width: 72rem
+    }
+
+    .flex-1 {
+      flex: 1 1 0%
+    }
+
+    .flex-shrink-0 {
+      flex-shrink: 0
+    }
+
+    .-translate-y-1\/2 {
+      --tw-translate-y: -50%;
+      transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+    }
+
+    .grid-cols-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr))
+    }
+
+    .grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr))
+    }
+
+    .flex-col {
+      flex-direction: column
+    }
+
+    .items-start {
+      align-items: flex-start
+    }
+
+    .items-end {
+      align-items: flex-end
+    }
+
+    .items-center {
+      align-items: center
+    }
+
+    .justify-center {
+      justify-content: center
+    }
+
+    .justify-between {
+      justify-content: space-between
+    }
+
+    .gap-1 {
+      gap: .25rem
+    }
+
+    .gap-2 {
+      gap: .5rem
+    }
+
+    .gap-3 {
+      gap: .75rem
+    }
+
+    .gap-4 {
+      gap: 1rem
+    }
+
+    .gap-5 {
+      gap: 1.25rem
+    }
+
+    .gap-6 {
+      gap: 1.5rem
+    }
+
+    .space-y-2>:not([hidden])~:not([hidden]) {
+      --tw-space-y-reverse: 0;
+      margin-top: calc(.5rem*(1 - var(--tw-space-y-reverse)));
+      margin-bottom: calc(.5rem*var(--tw-space-y-reverse))
+    }
+
+    .space-y-3>:not([hidden])~:not([hidden]) {
+      --tw-space-y-reverse: 0;
+      margin-top: calc(.75rem*(1 - var(--tw-space-y-reverse)));
+      margin-bottom: calc(.75rem*var(--tw-space-y-reverse))
+    }
+
+    .space-y-5>:not([hidden])~:not([hidden]) {
+      --tw-space-y-reverse: 0;
+      margin-top: calc(1.25rem*(1 - var(--tw-space-y-reverse)));
+      margin-bottom: calc(1.25rem*var(--tw-space-y-reverse))
+    }
+
+    .overflow-hidden {
+      overflow: hidden
+    }
+
+    .rounded-full {
+      border-radius: 9999px
+    }
+
+    .rounded-lg {
+      border-radius: .5rem
+    }
+
+    .rounded-xl {
+      border-radius: .75rem
+    }
+
+    .border-b {
+      border-bottom-width: 1px
+    }
+
+    .border-gray-200\/80 {
+      border-color: #e5e7ebcc
+    }
+
+    .p-1 {
+      padding: .25rem
+    }
+
+    .p-10 {
+      padding: 2.5rem
+    }
+
+    .p-2\.5 {
+      padding: .625rem
+    }
+
+    .p-4 {
+      padding: 1rem
+    }
+
+    .p-5 {
+      padding: 1.25rem
+    }
+
+    .p-6 {
+      padding: 1.5rem
+    }
+
+    .p-7 {
+      padding: 1.75rem
+    }
+
+    .px-2 {
+      padding-left: .5rem;
+      padding-right: .5rem
+    }
+
+    .px-3 {
+      padding-left: .75rem;
+      padding-right: .75rem
+    }
+
+    .px-4 {
+      padding-left: 1rem;
+      padding-right: 1rem
+    }
+
+    .px-5 {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem
+    }
+
+    .px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem
+    }
+
+    .py-1 {
+      padding-top: .25rem;
+      padding-bottom: .25rem
+    }
+
+    .py-10 {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem
+    }
+
+    .py-14 {
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem
+    }
+
+    .py-2 {
+      padding-top: .5rem;
+      padding-bottom: .5rem
+    }
+
+    .py-3 {
+      padding-top: .75rem;
+      padding-bottom: .75rem
+    }
+
+    .py-4 {
+      padding-top: 1rem;
+      padding-bottom: 1rem
+    }
+
+    .pl-10 {
+      padding-left: 2.5rem
+    }
+
+    .pr-4 {
+      padding-right: 1rem
+    }
+
+    .text-center {
+      text-align: center
+    }
+
+    .text-3xl {
+      font-size: 1.875rem;
+      line-height: 2.25rem
+    }
+
+    .text-\[10px\] {
+      font-size: 10px
+    }
+
+    .text-base {
+      font-size: 1rem;
+      line-height: 1.5rem
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+      line-height: 1.75rem
+    }
+
+    .text-sm {
+      font-size: .875rem;
+      line-height: 1.25rem
+    }
+
+    .text-xs {
+      font-size: .75rem;
+      line-height: 1rem
+    }
+
+    .font-medium {
+      font-weight: 500
+    }
+
+    .font-normal {
+      font-weight: 400
+    }
+
+    .font-semibold {
+      font-weight: 600
+    }
+
+    .uppercase {
+      text-transform: uppercase
+    }
+
+    .leading-relaxed {
+      line-height: 1.625
+    }
+
+    .leading-tight {
+      line-height: 1.25
+    }
+
+    .tracking-wide {
+      letter-spacing: .025em
+    }
+
+    .tracking-widest {
+      letter-spacing: .1em
+    }
+
+    .text-white {
+      --tw-text-opacity: 1;
+      color: rgb(255 255 255/var(--tw-text-opacity, 1))
+    }
+
+    .transition-all {
+      transition-property: all;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s
+    }
+
+    .transition-colors {
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s
+    }
+
+    .hover\:text-brand:hover {
+      --tw-text-opacity: 1;
+      color: rgb(254 80 0/var(--tw-text-opacity, 1))
+    }
+
+    @media (min-width:640px) {
+      .sm\:text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem
+      }
+    }
+
+    @media (min-width:768px) {
+      .md\:col-span-2 {
+        grid-column: span 2/span 2
+      }
+
+      .md\:col-span-3 {
+        grid-column: span 3/span 3
+      }
+
+      .md\:col-span-4 {
+        grid-column: span 4/span 4
+      }
+
+      .md\:col-span-5 {
+        grid-column: span 5/span 5
+      }
+
+      .md\:h-12 {
+        height: 3rem
+      }
+
+      .md\:grid-cols-12 {
+        grid-template-columns: repeat(12, minmax(0, 1fr))
+      }
+
+      .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+      }
+
+      .md\:p-8 {
+        padding: 2rem
+      }
+
+      .md\:px-12 {
+        padding-left: 3rem;
+        padding-right: 3rem
+      }
+
+      .md\:py-20 {
+        padding-top: 5rem;
+        padding-bottom: 5rem
+      }
+
+      .md\:text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem
+      }
+
+      .md\:text-6xl {
+        font-size: 3.75rem;
+        line-height: 1
+      }
+    }
+
+    @media (min-width:1024px) {
+      .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+      }
+    }
+  </style>
+  <style>
+    * {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 {
+      transition-delay: 0.1s;
+    }
+
+    .stagger-2 {
+      transition-delay: 0.2s;
+    }
+
+    .stagger-3 {
+      transition-delay: 0.3s;
+    }
+
+    .stagger-4 {
+      transition-delay: 0.4s;
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px) scale(1.012);
+    }
+
+    .glow-brand {
+      box-shadow: 0 8px 32px rgba(254, 80, 0, 0.18), 0 0 0 2px rgba(254, 80, 0, 0.15);
+    }
+
+    .glow-brand:hover {
+      box-shadow: 0 12px 40px rgba(254, 80, 0, 0.28), 0 0 0 2px rgba(254, 80, 0, 0.25);
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -400px 0;
+      }
+
+      100% {
+        background-position: 400px 0;
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.55;
+        transform: scale(1.08);
+      }
+    }
+
+    .hero-orb {
+      animation: orbPulse 6s ease-in-out infinite;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    }
+
+    .device-btn {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1.5px solid #e5e7eb;
+      color: #818181;
+    }
+
+    .device-btn:hover {
+      border-color: #FE5000;
+      color: #FE5000;
+      background: rgba(254, 80, 0, 0.04);
+    }
+
+    .device-btn.active {
+      background: linear-gradient(135deg, #FE5000 0%, #c23d00 100%);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 4px 16px rgba(254, 80, 0, 0.35);
+    }
+
+    .device-btn.active span,
+    .device-btn.active svg {
+      color: white;
+      stroke: white;
+    }
+
+    .toggle-switch {
+      width: 44px;
+      height: 24px;
+      background: #d1d5db;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch.on {
+      background: #FE5000;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.on::after {
+      transform: translateX(20px);
+    }
+
+    .tab-btn {
+      cursor: pointer;
+      padding: 7px 14px;
+      font-weight: 500;
+      font-size: 13px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: #FE5000;
+      color: white;
+      box-shadow: 0 2px 12px rgba(254, 80, 0, 0.3);
+    }
+
+    .tab-btn:not(.active) {
+      color: #524C4A;
+    }
+
+    .tab-btn:not(.active):hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 400px) {
+      .tab-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+    }
+
+    .tab-content {
+      display: none;
+      animation: tabFadeIn 0.35s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    header.scrolled {
+      box-shadow: 0 2px 24px rgba(254, 80, 0, 0.08);
+      border-bottom-color: rgba(254, 80, 0, 0.18) !important;
+    }
+
+    footer {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 2.5rem);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #FE5000 !important;
+      box-shadow: 0 0 0 3px rgba(254, 80, 0, 0.15) !important;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 32px rgba(254, 80, 0, 0.15), 0 0 0 2px rgba(254, 80, 0, 0.12);
+      }
+
+      50% {
+        box-shadow: 0 12px 40px rgba(254, 80, 0, 0.28), 0 0 0 2px rgba(254, 80, 0, 0.22);
+      }
+    }
+
+    .recommended-pulse {
+      animation: pulse-glow 3s infinite;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #FE5000;
+    }
+
+    .step-connector {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #FE5000, rgba(254, 80, 0, 0.2));
+      margin: 0 8px;
+      margin-top: -20px;
+    }
+
+    .coverage-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .coverage-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.11);
+    }
+
+    button,
+    input,
+    [onclick] {
+      touch-action: manipulation;
+    }
+
+    @media (max-width: 380px) {
+      .hero-section h1 {
+        font-size: 1.6rem;
+        line-height: 1.2;
+      }
+
+      .device-btn span {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col" style="background:#f5f5f7; color:#070200"> <!-- ===== NAVBAR ===== -->
+  <header class="sticky top-0 z-50 border-b border-gray-200/80"
+    style="background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4"> <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAB2CAYAAAAUX+2zAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3YTZkZTQ2MS04MTI0LTQzNjEtOWI4Ny0zYjAwY2QzOGI1MjkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0QwQjVBRjBBMTg4MTFFQUIzNjFCNjc5OEFDQzIwM0EiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0QwQjVBRUZBMTg4MTFFQUIzNjFCNjc5OEFDQzIwM0EiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3YTZkZTQ2MS04MTI0LTQzNjEtOWI4Ny0zYjAwY2QzOGI1MjkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N2E2ZGU0NjEtODEyNC00MzYxLTliODctM2IwMGNkMzhiNTI5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"
+        alt="Insurama" style="height:32px;width:auto;display:block;">
+      <div class="flex gap-1 p-1 rounded-xl" style="background:rgba(0,0,0,0.05)"> <button class="tab-btn active"
+          onclick="showTab('cotizador',this)">Cotizador</button> <button class="tab-btn"
+          onclick="showTab('guia',this)">Guía</button> <button class="tab-btn"
+          onclick="showTab('contacto',this)">Contacto</button> </div>
+    </div>
+  </header> <!-- ===== HERO ===== -->
+  <section class="hero-section relative overflow-hidden py-14 md:py-20 px-4"
+    style="background:linear-gradient(135deg, #0a0a0f 0%, #1a0800 50%, #0a0a0f 100%)"> <!-- Floating orb -->
+    <div class="hero-orb absolute pointer-events-none"
+      style="width:min(480px,100vw);height:min(480px,100vw);border-radius:50%;background:radial-gradient(circle, rgba(254,80,0,0.22) 0%, transparent 70%);top:-80px;right:-80px;filter:blur(40px)">
+    </div>
+    <div class="absolute pointer-events-none"
+      style="width:min(300px,80vw);height:min(300px,80vw);border-radius:50%;background:radial-gradient(circle, rgba(254,80,0,0.1) 0%, transparent 70%);bottom:-60px;left:5%;filter:blur(60px)">
+    </div>
+    <div class="max-w-6xl mx-auto text-center relative z-10">
+      <h1 class="text-3xl sm:text-4xl md:text-6xl font-semibold text-white leading-tight mb-5"
+        style="letter-spacing:-0.02em"> Protege el Ecosistema <span style="color:#FE5000">Apple</span> </h1>
+    </div>
+  </section> <!-- TAB: COTIZADOR -->
+  <div id="tab-cotizador" class="tab-content active">
+    <section class="max-w-6xl mx-auto px-4 py-10"> <!-- Calculator panel -->
+      <div class="reveal visible rounded-[24px] p-6 md:p-8 mb-8"
+        style="background:#fff;box-shadow:0 8px 40px rgba(0,0,0,0.09);border:1px solid rgba(0,0,0,0.06)">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-end"> <!-- Device Selector -->
+          <div class="md:col-span-5"> <label class="section-label mb-3 block">Dispositivo</label>
+            <div class="grid grid-cols-4 gap-2" id="deviceGrid"> <button onclick="selectDevice('iphone')"
+                data-dev="iphone"
+                class="device-btn active flex flex-col items-center py-3 px-2 rounded-xl transition-all"> <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                  width="22" height="22">
+                  <rect x="5" y="2" width="14" height="20" rx="2.5" />
+                  <line x1="10" y1="19" x2="14" y2="19" />
+                </svg> <span class="text-xs mt-1.5 font-medium">iPhone</span> </button> <button
+                onclick="selectDevice('ipad')" data-dev="ipad"
+                class="device-btn flex flex-col items-center py-3 px-2 rounded-xl transition-all"> <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                  width="22" height="22">
+                  <rect x="3" y="4" width="18" height="16" rx="2.5" />
+                  <line x1="11" y1="18.5" x2="13" y2="18.5" />
+                </svg> <span class="text-xs mt-1.5 font-medium">iPad</span> </button> <button
+                onclick="selectDevice('mac')" data-dev="mac"
+                class="device-btn flex flex-col items-center py-3 px-2 rounded-xl transition-all"> <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                  width="22" height="22">
+                  <rect x="2" y="4" width="20" height="13" rx="2" />
+                  <path d="M1 20h22M8 17l-1 3M16 17l1 3" />
+                </svg> <span class="text-xs mt-1.5 font-medium">Mac</span> </button> <button
+                onclick="selectDevice('watch')" data-dev="watch"
+                class="device-btn flex flex-col items-center py-3 px-2 rounded-xl transition-all"> <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                  width="22" height="22">
+                  <rect x="7" y="7" width="10" height="10" rx="2" />
+                  <path d="M10 7V5h4v2M10 17v2h4v-2" />
+                </svg> <span class="text-xs mt-1.5 font-medium">Watch</span> </button> </div>
+          </div> <!-- Value Input -->
+          <div class="md:col-span-4"> <label class="section-label mb-3 block">Precio de Lista (USD)</label>
+            <div class="relative"> <span class="absolute left-4 top-1/2 -translate-y-1/2 font-normal text-base"
+                style="color:#818181">$</span> <input id="priceInput" type="number" min="0" step="1"
+                placeholder="Precio del dispositivo"
+                class="w-full rounded-xl py-4 pl-10 pr-4 text-base font-normal transition-all"
+                style="background:#f5f5f7;border:1.5px solid #e5e7eb;color:#070200" oninput="calculate()"> </div>
+          </div> <!-- Monthly Toggle -->
+          <div class="md:col-span-3">
+            <div class="flex items-center justify-between py-4 px-5 rounded-xl"
+              style="background:#f5f5f7;border:1.5px solid #e5e7eb">
+              <div>
+                <p class="text-xs font-medium uppercase tracking-wide mb-0.5" style="color:#524C4A">Cuota Total</p>
+                <p class="text-[10px]" style="color:#818181">Ver precio total</p>
+              </div>
+              <div id="monthlyToggle" class="toggle-switch" onclick="toggleMonthly()"></div>
+            </div>
+          </div>
+        </div> <!-- Range indicator -->
+        <div id="rangeIndicator" class="mt-5 hidden"> <span
+            class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg"
+            style="background:#f5f5f7;color:#524C4A"> <svg viewBox="0 0 24 24" fill="currentColor" width="13"
+              height="13" style="color:#FE5000">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+            </svg> <span id="rangeText"></span> </span> </div>
+      </div> <!-- Pricing cards -->
+      <div id="cardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10"></div>
+    </section>
+  </div> <!-- TAB: GUIA -->
+  <div id="tab-guia" class="tab-content">
+    <div class="max-w-6xl mx-auto px-4 py-10 space-y-10">
+
+      <!-- AVISO COMPARTIDO -->
+      <div class="reveal p-6 md:p-8 rounded-[20px]" style="background:#ffdbcc;border:1px solid #e2bfb0">
+        <div class="flex items-center gap-3 mb-5">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" style="color:#a04100;flex-shrink:0"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest" style="color:#7a3000">Aplica para ambas coberturas</p>
+            <p class="text-sm font-semibold mt-0.5" style="color:#351000">Durante el proceso de facturación y activación, es obligatorio verificar que:</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="flex items-center gap-3 p-3 rounded-[10px] bg-white" style="border:1px solid rgba(226,191,176,0.5)">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" style="color:#FE5000;flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <p class="text-sm" style="color:#351000">Precio de lista del dispositivo, sin descuentos ocasionales.</p>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-[10px] bg-white" style="border:1px solid rgba(226,191,176,0.5)">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" style="color:#FE5000;flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <p class="text-sm" style="color:#351000">El valor de la póliza coincida con el cobrado en factura.</p>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-[10px] bg-white" style="border:1px solid rgba(226,191,176,0.5)">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" style="color:#FE5000;flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <p class="text-sm" style="color:#351000">El plan seleccionado sea el contratado por el cliente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO RIESGO -->
+      <div class="reveal">
+        <div class="flex items-center gap-2 mb-5">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#FE5000"><path d="M12 2L4 5.5V12c0 5 3.5 9.7 8 11 4.5-1.3 8-6 8-11V5.5L12 2z"/></svg>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest" style="color:#FE5000">Cobertura completa</p>
+            <h2 class="text-xl font-bold" style="color:#070200">Todo Riesgo</h2>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- Cómo funciona - panel ancho -->
+          <div class="rounded-[16px] bg-white p-6" style="border:1px solid #e5e7eb;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color:#070200">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+              ¿Cómo funcionan los Seguros?
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Seguro para productos nuevos.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Cubre daño accidental (roturas o mojaduras) y robo/hurto, según la modalidad contratada.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm font-semibold" style="color:#070200">En caso de siniestro, NO HAY DEDUCIBLE.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Permite cambiar el equipo asegurado en cualquier momento de la vigencia.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Cubre 1 o 2 siniestros: 1 por daño accidental/mojadura + 1 por robo o hurto al año.</p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Siniestro - panel estrecho -->
+          <div class="flex flex-col gap-4">
+            <div class="rounded-[16px] p-6 flex-grow" style="background:#f5f5f7;border:1px solid #e5e7eb">
+              <h3 class="text-sm font-semibold mb-4" style="color:#070200">¿Qué sucede en caso de siniestro?</h3>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3 pb-3" style="border-bottom:1px solid #e5e7eb">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">1</span>
+                  <p class="text-sm" style="color:#070200">Declarar el siniestro vía app <strong>INSURAMA</strong> o Espacio Cliente web.</p>
+                </div>
+                <div class="flex items-start gap-3 pb-3" style="border-bottom:1px solid #e5e7eb">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">2</span>
+                  <p class="text-sm" style="color:#070200">Adjuntar factura/boleta de compra del equipo.</p>
+                </div>
+                <div class="flex items-start gap-3 pb-3" style="border-bottom:1px solid #e5e7eb">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">3</span>
+                  <p class="text-sm" style="color:#070200"><strong>Daño accidental:</strong> fotos del equipo + factura.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">4</span>
+                  <p class="text-sm" style="color:#070200"><strong>Robo o hurto:</strong> factura + denuncia + bloqueo IMEI.</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-3 rounded-[10px]" style="background:#fff3ee;border:1px solid rgba(254,80,0,0.2)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="color:#FE5000;flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <p class="text-xs" style="color:#070200">Mantener activa la <strong>geolocalización de la app INSURAMA</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXTENSIÓN DE GARANTÍA -->
+      <div class="reveal rounded-[20px] p-6 md:p-8 pb-10" style="background:#f0f0f2;border:1px solid #e2e2e4">
+        <div class="flex items-center gap-2 mb-6">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#FE5000"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest" style="color:#FE5000">Garantía extendida</p>
+            <h2 class="text-xl font-bold" style="color:#070200">Extensión de Garantía</h2>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Cómo funciona -->
+          <div>
+            <h3 class="text-sm font-semibold mb-4" style="color:#070200">¿Cómo funciona la Extensión de Garantía?</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Cubre el mismo tipo de averías y defectos cubiertos en la garantía oficial del fabricante.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">Si no es posible la reparación, se sustituye por un equipo de igual o similares características.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="color:#FE5000;flex-shrink:0;margin-top:1px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p class="text-sm" style="color:#070200">La cobertura se activa al finalizar la garantía oficial del fabricante.</p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Defecto de fábrica -->
+          <div class="rounded-[14px] bg-white p-5" style="border:1px solid #e5e7eb;box-shadow:0 1px 8px rgba(0,0,0,0.04)">
+            <h3 class="text-sm font-semibold mb-4" style="color:#070200">¿Qué sucede en caso de defecto de fábrica?</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3 pb-3" style="border-bottom:1px solid #f0f0f0">
+                <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">1</span>
+                <div>
+                  <p class="text-xs font-semibold mb-0.5" style="color:#070200">Declarar el defecto</p>
+                  <p class="text-xs" style="color:#524C4A">App <strong>INSURAMA</strong> o Espacio Cliente web.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 pb-3" style="border-bottom:1px solid #f0f0f0">
+                <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">2</span>
+                <div>
+                  <p class="text-xs font-semibold mb-0.5" style="color:#070200">Documentación</p>
+                  <p class="text-xs" style="color:#524C4A">Factura de compra + certificado de garantía original del fabricante.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#FE5000">3</span>
+                <div>
+                  <p class="text-xs font-semibold mb-0.5" style="color:#070200">Solución</p>
+                  <p class="text-xs" style="color:#524C4A">Reparación o sustitución si no es posible la reparación.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div> <!-- TAB: CONTACTO -->
+  <div id="tab-contacto" class="tab-content">
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="reveal card-hover rounded-[24px] overflow-hidden" style="background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);border:1px solid #f0f0f0">
+        <div class="p-3 md:p-4">
+          <img src="img/Contacto Panama 1.png" alt="Contacto Panama 1" style="width:100%;height:auto;display:block;border-radius:16px;object-fit:cover;">
+        </div>
+      </div>
+      <div class="reveal card-hover rounded-[24px] overflow-hidden" style="background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);border:1px solid #f0f0f0">
+        <div class="p-3 md:p-4">
+          <img src="img/Contacto Panama 2.png" alt="Contacto Panama 2" style="width:100%;height:auto;display:block;border-radius:16px;object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+</div> <!-- ===== FOOTER ===== -->
+  <footer class="mt-auto py-10 text-center" style="background:#0a0a0f">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-sm" style="color:#524C4A">&copy; 2026 Insurama. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  <script>
+    function showTab(name, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    const DB = {
+      iphone: {
+        ranges: [[0, 71], [72, 95], [96, 143], [144, 190], [191, 238], [239, 286], [287, 333], [334, 381], [382, 429], [430, 476], [477, 524], [525, 571], [572, 643], [644, 714], [715, 1190], [1191, 30000]],
+        todoRiesgo: {
+          12: [17.28, 26.64, 38.88, 46.88, 59.13, 71.71, 84.28, 96.86, 109.44, 133.8, 147.59, 161.39, 180.01, 200.7, 234.09, 257.92]
+        },
+        roboHurto: {
+          12: [6.05, 9.33, 13.61, 16.41, 20.7, 25.1, 29.5, 33.91, 38.31, 47.71, 52.62, 57.54, 64.18, 71.56, 81.63, 105.46]
+        }
+      },
+      ipad: {
+        ranges: [[0, 71], [72, 95], [96, 143], [144, 190], [191, 238], [239, 286], [287, 333], [334, 381], [382, 429], [430, 476], [477, 524], [525, 571], [572, 643], [644, 714], [715, 1190], [1191, 30000]],
+        todoRiesgo: {
+          12: [17.28, 26.64, 38.88, 46.88, 59.13, 71.71, 84.28, 96.86, 109.44, 133.8, 147.59, 161.39, 180.01, 200.7, 234.09, 257.92]
+        },
+        roboHurto: {
+          12: [6.05, 9.33, 13.61, 16.41, 20.7, 25.1, 29.5, 33.91, 38.31, 47.71, 52.62, 57.54, 64.18, 71.56, 81.63, 105.46]
+        }
+      },
+      mac: {
+        ranges: [[0, 300], [301, 550], [551, 950], [951, 1400], [1401, 2100], [2101, 2800], [2801, 6000]],
+        todoRiesgo: {
+          12: [45.14, 65.21, 96.42, 129.86, 172.22, 230.75, 288.16]
+        },
+        roboHurto: {
+          12: [10.18, 19.23, 28.29, 43, 63.36, 96.17, 128.99]
+        }
+      },
+      watch: {
+        ranges: [[0, 71], [72, 95], [96, 143], [144, 190], [191, 238], [239, 286], [287, 333], [334, 381], [382, 429], [430, 476], [477, 524], [525, 571], [572, 643], [644, 714], [715, 1190], [1191, 30000]],
+        todoRiesgo: {
+          12: [17.28, 26.64, 38.88, 46.88, 59.13, 71.71, 84.28, 96.86, 109.44, 133.8, 147.59, 161.39, 180.01, 200.7, 234.09, 257.92]
+        },
+        roboHurto: {
+          12: [6.05, 9.33, 13.61, 16.41, 20.70, 25.10, 29.50, 33.91, 38.31, 47.71, 52.62, 57.54, 64.18, 71.56, 81.63, 105.46]
+        }
+      }
+    };
+
+    const EXT_GARANTIA = {
+      celulares: {
+        ranges: [[0, 250], [251, 500], [501, 1000], [1001, 1500], [1501, 2000], [2001, 2500]],
+        12: [13.33, 26.67, 33.33, 40.00, 46.67, 50.00],
+        24: [20.00, 40.00, 50.00, 60.00, 70.00, 75.00]
+      },
+      resto: {
+        ranges: [[0, 50], [51, 100], [101, 250], [251, 500], [501, 1000], [1001, 1500], [1501, 2000], [2001, 2500], [2501, 3000], [3001, 5000]],
+        36: [6.00, 10.00, 20.00, 40.00, 50.00, 60.00, 70.00, 75.00, 85.00, 110.00]
+      }
+    };
+
+    let currentDevice = 'iphone';
+    let showMonthly = true;
+
+    function selectDevice(dev) {
+      currentDevice = dev;
+      document.querySelectorAll('.device-btn').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.dev === dev);
+        if (b.dataset.dev !== dev) b.classList.add('text-dark-400');
+        else b.classList.remove('text-dark-400');
+      });
+      calculate();
+    }
+
+    function toggleMonthly() {
+      showMonthly = !showMonthly;
+      document.getElementById('monthlyToggle').classList.toggle('on', !showMonthly);
+      calculate();
+    }
+
+    function findRange(ranges, value) {
+      for (var i = 0; i < ranges.length; i++) {
+        if (value >= ranges[i][0] && value <= ranges[i][1]) return i;
+      }
+      return -1;
+    }
+
+    function fmt(n) { return '$' + n.toFixed(2); }
+
+    const CARD_THEMES = {
+      'Todo Riesgo': { borderColor: 'rgba(254,80,0,0.25)', headerGrad: 'linear-gradient(135deg,#FE5000 0%,#c23d00 100%)', accentBg: '#FE5000', lightBg: 'rgba(254,80,0,0.07)', highlightBorder: 'rgba(254,80,0,0.35)', iconColor: '#FE5000', shadowColor: 'rgba(254,80,0,0.1)' },
+      'Robo y Hurto': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
+      'Daño Accidental': { borderColor: 'rgba(7,2,0,0.18)', headerGrad: 'linear-gradient(135deg,#524C4A 0%,#070200 100%)', accentBg: '#070200', lightBg: 'rgba(7,2,0,0.05)', highlightBorder: 'rgba(7,2,0,0.22)', iconColor: '#070200', shadowColor: 'rgba(7,2,0,0.1)' },
+      'Ext. Garantia': { borderColor: 'rgba(180,83,9,0.2)', headerGrad: 'linear-gradient(135deg,#B45309 0%,#78350F 100%)', accentBg: '#92400E', lightBg: 'rgba(180,83,9,0.06)', highlightBorder: 'rgba(180,83,9,0.28)', iconColor: '#92400E', shadowColor: 'rgba(180,83,9,0.08)' }
+    };
+
+    const CARD_SVGS = {
+      'Todo Riesgo': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2L4 5.5V12c0 5 3.5 9.7 8 11 4.5-1.3 8-6 8-11V5.5L12 2z"/></svg>',
+      'Robo y Hurto': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
+      'Daño Accidental': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+      'Ext. Garantia': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>'
+    };
+
+    function buildPlansFromTable(table, rangeIdx, preferredTerms) {
+      if (!table) return [];
+      var terms = preferredTerms || [24, 18, 12, 36];
+      return terms.reduce(function (acc, term) {
+        var values = table[term];
+        if (Array.isArray(values) && typeof values[rangeIdx] === 'number') {
+          acc.push({ m: term, p: values[rangeIdx] });
+        }
+        return acc;
+      }, []);
+    }
+
+    function buildCard(title, desc, recommended, plans) {
+      var t = CARD_THEMES[title] || CARD_THEMES['Todo Riesgo'];
+      var svg = CARD_SVGS[title] || CARD_SVGS['Todo Riesgo'];
+
+      var recBadge = recommended
+        ? '<div style="display:inline-flex;align-items:center;gap:5px;background:' + t.accentBg + ';color:white;font-size:10px;font-weight:500;padding:5px 12px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Mas Completo</div>'
+        : '';
+
+      var plansHtml = plans.map(function (p, i) {
+        var total = p.p;
+        var monthly = total / p.m;
+        var isHighlight = recommended ? (i === 0) : (title === 'Ext. Garantia' ? (i === 0) : (i === plans.length - 1));
+        var rowBg = isHighlight ? t.lightBg : '#f8f8f8';
+        var rowBorder = isHighlight ? t.highlightBorder : '#e5e7eb';
+        var priceColor = isHighlight ? t.iconColor : '#070200';
+        var periodLabel = p.m === 12 ? '12 meses' : p.m === 18 ? '18 meses' : p.m === 24 ? '24 meses' : '36 meses';
+        var priceDisplay = showMonthly
+          ? '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:400;color:#818181">/mes</span><div style="font-size:10px;color:#818181;margin-top:2px">Total: ' + fmt(total) + '</div></div>'
+          : '<div style="text-align:right"><span style="font-size:20px;font-weight:600;color:' + priceColor + ';line-height:1">' + fmt(total) + '</span></div>';
+        var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + t.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">Recomendado</div>' : '';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:1.5px solid ' + rowBorder + ';border-radius:12px;padding:12px 14px;"><div><div style="font-size:12px;font-weight:500;color:#070200;letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
+      }).join('');
+
+      var extraClass = recommended ? 'recommended-pulse' : '';
+      return '<div class="reveal card-hover ' + extraClass + '" style="background:#fff;border:1.5px solid ' + t.borderColor + ';border-radius:24px;overflow:hidden;display:flex;flex-direction:column;height:100%;box-shadow:0 8px 32px ' + t.shadowColor + '">'
+        + '<div style="' + t.headerGrad.replace('linear-gradient', 'background:linear-gradient') + ';padding:20px 22px;">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:' + (recBadge ? '12px' : '0') + '">'
+        + '<div style="display:flex;align-items:center;gap:12px;">'
+        + '<div style="background:rgba(255,255,255,0.18);border-radius:10px;padding:8px;color:white;">' + svg + '</div>'
+        + '<div><div style="color:white;font-weight:600;font-size:15px">' + title + '</div>'
+        + '<div style="color:rgba(255,255,255,0.72);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px">' + desc + '</div>'
+        + '</div></div></div>' + recBadge + '</div>'
+        + '<div style="padding:16px;display:flex;flex-direction:column;gap:8px;flex:1;">' + plansHtml + '</div>'
+        + '</div>';
+    }
+
+    function calculate() {
+      var val = parseFloat(document.getElementById('priceInput').value);
+      var container = document.getElementById('cardsContainer');
+      var rangeInd = document.getElementById('rangeIndicator');
+
+      if (!val || val <= 0) {
+        container.innerHTML = '';
+        rangeInd.classList.add('hidden');
+        return;
+      }
+
+      var cards = [];
+      var dev = currentDevice;
+      var data = DB[dev];
+      var rangeIdx = findRange(data.ranges, val);
+
+      if (rangeIdx >= 0) {
+        rangeInd.classList.remove('hidden');
+        document.getElementById('rangeText').textContent = 'Rango detectado: $' + data.ranges[rangeIdx][0] + ' - $' + data.ranges[rangeIdx][1];
+
+        var extCfg = dev === 'iphone' ? EXT_GARANTIA.celulares : EXT_GARANTIA.resto;
+        var egRangeIdx = findRange(extCfg.ranges, val);
+        if (egRangeIdx >= 0) {
+          if (dev === 'iphone') {
+            var eg12 = EXT_GARANTIA.celulares[12][egRangeIdx];
+            var eg24 = EXT_GARANTIA.celulares[24][egRangeIdx];
+            var egPlans = [];
+            if (typeof eg24 === 'number') egPlans.push({ m: 24, p: eg24 });
+            if (typeof eg12 === 'number') egPlans.push({ m: 12, p: eg12 });
+            if (egPlans.length > 0) cards.push(buildCard('Ext. Garantia', 'Extension de garantia del fabricante', false, egPlans));
+          } else {
+            var eg36 = EXT_GARANTIA.resto[36][egRangeIdx];
+            if (typeof eg36 === 'number') cards.push(buildCard('Ext. Garantia', 'Extension de garantia del fabricante', false, [{ m: 36, p: eg36 }]));
+          }
+        }
+
+        var trPlans = buildPlansFromTable(data.todoRiesgo, rangeIdx, [24, 18, 12]);
+        if (trPlans.length > 0) {
+          cards.push(buildCard('Todo Riesgo', 'Dano Accidental + Robo + Hurto', true, trPlans));
+        }
+
+        var secondaryTitle = dev === 'mac' ? 'Daño Accidental' : 'Robo y Hurto';
+        var secondaryDesc = dev === 'mac' ? 'Cobertura por dano accidental' : 'Proteccion contra sustraccion del equipo';
+        var secondarySource = dev === 'mac' ? (data.danoAccidental || data.roboHurto) : data.roboHurto;
+        var secondaryPlans = buildPlansFromTable(secondarySource, rangeIdx, [24, 18, 12]);
+        if (secondaryPlans.length > 0) {
+          cards.push(buildCard(secondaryTitle, secondaryDesc, false, secondaryPlans));
+        }
+      } else {
+        rangeInd.classList.remove('hidden');
+        document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: $' + data.ranges[0][0] + ' - $' + data.ranges[data.ranges.length - 1][1];
+      }
+
+      if (cards.length === 0) {
+        container.innerHTML = '<div class="rounded-[20px] p-10 text-center col-span-full" style="background:#fff;border:1px solid #f0f0f0"><p class="font-medium" style="color:#070200">No se encontraron planes para este valor</p><p class="text-xs mt-1" style="color:#524C4A">Verifica el precio de lista del equipo</p></div>';
+      } else {
+        container.innerHTML = cards.join('');
+        setTimeout(function () { container.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); }); }, 50);
+      }
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+
+    window.addEventListener('scroll', function () {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+  </script>
+</body>
+
+</html>
