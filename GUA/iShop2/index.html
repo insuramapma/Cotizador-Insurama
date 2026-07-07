@@ -1918,12 +1918,12 @@
 
       var plansHtml = plans.map(function (p, i) {
         var total = p.p;
-        var monthly = total / p.m;
-        var isHighlight = p.m === 36;
+        var monthly = total / 12;
+        var isHighlight = p.m === 24;
         var rowBg = isHighlight ? 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, ' + theme.lightBg + ' 100%)' : '#f8f8f8';
         var rowBorder = isHighlight ? theme.highlightBorder : '#e5e7eb';
         var tariffColor = theme.tariffTextColor;
-        var periodLabel = p.m === 12 ? '12 meses' : p.m === 18 ? '18 meses' : p.m === 24 ? '24 meses' : '36 meses';
+        var periodLabel = p.m + ' meses';
         var priceFont = isHighlight ? '24px' : '20px';
         var labelWeight = isHighlight ? '700' : '500';
         var rowShadow = isHighlight ? '0 10px 22px ' + theme.shadowColor : 'none';
