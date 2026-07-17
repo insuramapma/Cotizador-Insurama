@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cotizador</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    background: #f5f5f7;
+    color: #070200;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(229,231,235,0.8);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 12px; padding-bottom: 12px;
+  }
+  .brand { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+  .brand span { color: #FE5000; }
+
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 56px 20px 64px;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0800 50%, #0a0a0f 100%);
+    text-align: center;
+  }
+  .hero-orb {
+    position: absolute; pointer-events: none;
+    width: min(480px,100vw); height: min(480px,100vw);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(254,80,0,0.22) 0%, transparent 70%);
+    top: -80px; right: -80px; filter: blur(40px);
+  }
+  .hero h1 {
+    position: relative; z-index: 1;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 600; color: #fff;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .hero p {
+    position: relative; z-index: 1;
+    margin-top: 14px; color: rgba(255,255,255,0.65);
+    font-size: 15px; max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+
+  main { padding: 40px 20px 60px; }
+
+  .card {
+    background: #fff; border-radius: 24px; padding: 28px 28px 30px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.09);
+    border: 1px solid rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+  }
+
+  .step-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #FE5000; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-label .n {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #FE5000; color: #fff; font-size: 10px; font-weight: 700;
+  }
+
+  .section { margin-bottom: 26px; }
+  .section:last-child { margin-bottom: 0; }
+
+  input[type="number"], select {
+    width: 100%; background: #f5f5f7; border: 1.5px solid #e5e7eb;
+    border-radius: 12px; padding: 13px 14px; font-size: 15px; color: #070200;
+    font-family: inherit; outline: none; transition: border-color 0.15s;
+  }
+  input[type="number"]:focus, select:focus { border-color: #FE5000; }
+
+  .price-input-wrap { position: relative; }
+  .price-input-wrap span {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: #818181; font-size: 15px; pointer-events: none;
+  }
+  .price-input-wrap input { padding-left: 28px; }
+
+  .category-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  }
+  .category-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 16px 8px; border-radius: 14px; cursor: pointer;
+    border: 1.5px solid #e5e7eb; background: #fff; color: #818181;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .category-btn svg { width: 24px; height: 24px; }
+  .category-btn.active {
+    border-color: transparent; color: #fff;
+    background: linear-gradient(135deg, #FE5000, #c23e00);
+    box-shadow: 0 6px 20px rgba(254,80,0,0.28);
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    width: 18px; height: 18px; accent-color: #FE5000; flex-shrink: 0; cursor: pointer;
+  }
+  .garantia-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    background: #f5f5f7; border: 1.5px solid #e5e7eb;
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .garantia-row:has(input:checked) { border-color: #FE5000; background: #fff5ef; }
+  .garantia-row .left { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  .garantia-row .price { font-weight: 700; font-size: 14px; white-space: nowrap; }
+
+  .coverage-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .coverage-card {
+    border-radius: 20px; overflow: hidden; background: #fff;
+    border: 1px solid #e5e7eb; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .coverage-card.featured { border-color: rgba(254,80,0,0.35); box-shadow: 0 8px 30px rgba(254,80,0,0.14); }
+  .coverage-header { padding: 20px 20px 18px; color: #fff; }
+  .header-todoriesgo { background: linear-gradient(135deg, #FE5000, #c23e00); }
+  .header-robo { background: linear-gradient(135deg, #2b2b2b, #0a0a0a); }
+  .header-danos { background: linear-gradient(135deg, #3a5a78, #22364a); }
+  .coverage-icon {
+    width: 40px; height: 40px; border-radius: 11px; background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+  }
+  .coverage-title { font-size: 16px; font-weight: 700; }
+  .coverage-subtitle { font-size: 10.5px; font-weight: 600; letter-spacing: 0.03em;
+    text-transform: uppercase; opacity: 0.75; margin-top: 3px; }
+  .coverage-flag {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+    background: rgba(255,255,255,0.18); padding: 6px 12px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em;
+  }
+  .coverage-terms { padding: 14px; }
+  label.coverage-term-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f5f5f7; border: 1.5px solid #e5e7eb; border-radius: 12px;
+    padding: 13px 15px; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s;
+  }
+  label.coverage-term-row:last-child { margin-bottom: 0; }
+  label.coverage-term-row input[type="radio"] { display: none; }
+  label.coverage-term-row:has(input:checked) { border-color: #FE5000; background: #fff5ef; }
+  .term-left { display: flex; flex-direction: column; gap: 4px; }
+  .term-months { font-size: 13.5px; font-weight: 600; }
+  .term-badge { font-size: 10px; font-weight: 700; color: #FE5000; letter-spacing: 0.03em; }
+  .term-right { text-align: right; }
+  .term-monthly { font-size: 17px; font-weight: 700; }
+  .term-monthly small { font-size: 11px; font-weight: 500; color: #818181; }
+  .term-total { display: block; font-size: 10.5px; color: #818181; margin-top: 2px; }
+  .no-coverage-btn {
+    display: block; margin: 14px auto 0; background: none; border: none;
+    color: #818181; font-size: 13px; text-decoration: underline; cursor: pointer;
+    font-family: inherit; padding: 4px;
+  }
+  .no-coverage-btn.active { color: #FE5000; font-weight: 600; }
+
+  .summary-card {
+    background: #070200; border-radius: 24px; padding: 26px 28px;
+    color: #fff;
+  }
+  .summary-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.06em; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+  .summary-row { display: flex; justify-content: space-between; align-items: flex-start;
+    font-size: 14px; color: rgba(255,255,255,0.75); padding: 8px 0; }
+  .summary-row-label { font-size: 15px; font-weight: 700; color: #fff; }
+  .summary-row-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+  .summary-row-amount { font-size: 15px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .summary-total { display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid rgba(255,255,255,0.15); margin-top: 12px; padding-top: 14px; }
+  .summary-total .label { font-size: 14px; font-weight: 500; color: #FE5000; }
+  .summary-total .value { font-size: 28px; font-weight: 700; color: #FE5000; }
+  .summary-note { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 10px; }
+
+  footer { text-align: center; padding: 30px 20px; font-size: 12px; color: #818181; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">cotiza<span>dor</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div class="wrap">
+    <h1>Protege tu dispositivo</h1>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <div class="card">
+
+    <div class="section">
+      <div class="step-label"><span class="n">1</span>Categoría</div>
+      <div class="category-grid" id="category-grid">
+        <button type="button" class="category-btn active" data-cat="iphone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="10" y1="19" x2="14" y2="19"/></svg>
+          iPhone
+        </button>
+        <button type="button" class="category-btn" data-cat="ipad">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><line x1="11" y1="18.5" x2="13" y2="18.5"/></svg>
+          iPad
+        </button>
+        <button type="button" class="category-btn" data-cat="mac">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M1 20h22M8 17l-1 3M16 17l1 3"/></svg>
+          Mac
+        </button>
+        <button type="button" class="category-btn" data-cat="watch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 7V5h4v2M10 17v2h4v-2"/></svg>
+          Watch
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="step-label"><span class="n">2</span>Dispositivo</div>
+      <div class="price-input-wrap">
+        <span>$</span>
+        <input type="number" id="device-price" placeholder="Precio de lista" min="0" step="1">
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="step-label"><span class="n">3</span>Accesorios</div>
+      <div class="price-input-wrap">
+        <span>$</span>
+        <input type="number" id="accessories-price" placeholder="Importe total de accesorios" min="0" step="1">
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="step-label"><span class="n">4</span>Forma de pago</div>
+      <select id="plazo">
+        <option value="contado">Al contado</option>
+        <option value="3">3 meses</option>
+        <option value="6">6 meses</option>
+        <option value="9">9 meses</option>
+        <option value="12" selected>12 meses</option>
+        <option value="18">18 meses</option>
+        <option value="24">24 meses</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <div class="step-label"><span class="n">5</span>Garantía extendida</div>
+      <label class="garantia-row">
+        <span class="left">
+          <input type="checkbox" id="garantia" checked>
+          Cubre daños de fábrica más allá del período estándar.
+        </span>
+        <span class="price">$40</span>
+      </label>
+    </div>
+
+    <div class="section">
+      <div class="step-label"><span class="n">6</span>Plan de seguro</div>
+      <div class="coverage-grid" id="coverage-grid">
+
+        <div class="coverage-card" data-plan="robo">
+          <div class="coverage-header header-robo">
+            <div class="coverage-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            </div>
+            <div class="coverage-title">Robo y Hurto</div>
+            <div class="coverage-subtitle">Protección contra sustracción del equipo</div>
+          </div>
+          <div class="coverage-terms">
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="robo:24">
+              <div class="term-left"><span class="term-months">24 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$6.25<small>/mes</small></span><span class="term-total">Total: $150.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="robo:18">
+              <div class="term-left"><span class="term-months">18 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$7.50<small>/mes</small></span><span class="term-total">Total: $135.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="robo:12">
+              <div class="term-left"><span class="term-months">12 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$7.92<small>/mes</small></span><span class="term-total">Total: $95.00</span></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="coverage-card featured" data-plan="todoriesgo">
+          <div class="coverage-header header-todoriesgo">
+            <div class="coverage-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/></svg>
+            </div>
+            <div class="coverage-title">Todo Riesgo</div>
+            <div class="coverage-subtitle">Daño accidental + robo + hurto</div>
+            <div class="coverage-flag">★ Más completo</div>
+          </div>
+          <div class="coverage-terms">
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="todoriesgo:24" checked>
+              <div class="term-left"><span class="term-months">24 meses</span><span class="term-badge">RECOMENDADO</span></div>
+              <div class="term-right"><span class="term-monthly">$12.92<small>/mes</small></span><span class="term-total">Total: $310.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="todoriesgo:18">
+              <div class="term-left"><span class="term-months">18 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$15.28<small>/mes</small></span><span class="term-total">Total: $275.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="todoriesgo:12">
+              <div class="term-left"><span class="term-months">12 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$16.25<small>/mes</small></span><span class="term-total">Total: $195.00</span></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="coverage-card" data-plan="danos">
+          <div class="coverage-header header-danos">
+            <div class="coverage-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/></svg>
+            </div>
+            <div class="coverage-title">Daños Accidentales</div>
+            <div class="coverage-subtitle">Cobertura por rotura o mal funcionamiento</div>
+          </div>
+          <div class="coverage-terms">
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="danos:24">
+              <div class="term-left"><span class="term-months">24 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$7.08<small>/mes</small></span><span class="term-total">Total: $170.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="danos:18">
+              <div class="term-left"><span class="term-months">18 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$8.50<small>/mes</small></span><span class="term-total">Total: $153.00</span></div>
+            </label>
+            <label class="coverage-term-row">
+              <input type="radio" name="coverage" value="danos:12">
+              <div class="term-left"><span class="term-months">12 meses</span></div>
+              <div class="term-right"><span class="term-monthly">$9.17<small>/mes</small></span><span class="term-total">Total: $110.00</span></div>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <input type="radio" name="coverage" value="ninguno" id="coverage-none" style="display:none">
+      <button type="button" class="no-coverage-btn" id="no-coverage-btn">Continuar sin seguro</button>
+    </div>
+
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-title">Desglose de cuota mensual</div>
+    <div id="breakdown"></div>
+    <div class="summary-total">
+      <span class="label">Total cuota mensual</span>
+      <span class="value" id="total-cuota">$0.00</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>Ejemplo de motor genérico — datos ilustrativos, no vinculantes.</footer>
+
+<script>
+const coverageTotals = {
+  todoriesgo: { 12: 195, 18: 275, 24: 310 },
+  robo: { 12: 95, 18: 135, 24: 150 },
+  danos: { 12: 110, 18: 153, 24: 170 },
+  ninguno: { 12: 0, 18: 0, 24: 0 }
+};
+
+function calc() {
+  const devicePrice = Number(document.getElementById('device-price').value) || 0;
+  const accessoriesPrice = Number(document.getElementById('accessories-price').value) || 0;
+  const plazoValue = document.getElementById('plazo').value;
+  const isContado = plazoValue === 'contado';
+  const plazo = isContado ? 1 : Number(plazoValue);
+
+  const garantia = document.getElementById('garantia').checked;
+  const garantiaPrice = garantia ? 40 : 0;
+
+  const coverageValue = document.querySelector('input[name="coverage"]:checked').value;
+  const [plan, term] = coverageValue.split(':');
+  const coverageTotal = plan === 'ninguno' ? 0 : coverageTotals[plan][Number(term)];
+  const coverageTerm = plan === 'ninguno' ? 1 : Number(term);
+
+  const deviceTotal = devicePrice + accessoriesPrice;
+  const coberturaTotal = garantiaPrice + coverageTotal;
+
+  const lineSubtitles = { 'Equipo': 'Dispositivo + Accesorios', 'Cobertura': 'Garantía + Seguro' };
+
+  const lines = [];
+  if (deviceTotal > 0) {
+    const amount = isContado ? deviceTotal : deviceTotal / plazo;
+    lines.push({ name: 'Equipo', amount: amount, suffix: isContado ? ' pago único' : '/mes' });
+  }
+  if (coberturaTotal > 0) {
+    const amount = isContado ? coberturaTotal : coberturaTotal / coverageTerm;
+    lines.push({ name: 'Cobertura', amount: amount, suffix: isContado ? ' pago único' : '/mes' });
+  }
+
+  const breakdown = document.getElementById('breakdown');
+  breakdown.innerHTML = '';
+  let totalMensual = 0;
+  let totalContado = 0;
+  lines.forEach(l => {
+    if (l.suffix === '/mes') totalMensual += l.amount;
+    else totalContado += l.amount;
+    const row = document.createElement('div');
+    row.className = 'summary-row';
+    row.innerHTML =
+      '<div><div class="summary-row-label">' + l.name + '</div>' +
+      '<div class="summary-row-sub">' + lineSubtitles[l.name] + '</div></div>' +
+      '<span class="summary-row-amount">$' + l.amount.toFixed(2) + l.suffix + '</span>';
+    breakdown.appendChild(row);
+  });
+  if (isContado) {
+    document.getElementById('total-cuota').textContent = '$' + totalContado.toFixed(2) + ' pago único';
+  } else {
+    document.getElementById('total-cuota').textContent = '$' + totalMensual.toFixed(2) + '/mes';
+  }
+}
+
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.getElementById('no-coverage-btn').addEventListener('click', () => {
+  document.getElementById('coverage-none').checked = true;
+  document.getElementById('no-coverage-btn').classList.add('active');
+  calc();
+});
+
+document.getElementById('device-price').addEventListener('input', calc);
+document.getElementById('plazo').addEventListener('change', calc);
+document.getElementById('garantia').addEventListener('change', calc);
+document.getElementById('accessories-price').addEventListener('input', calc);
+document.querySelectorAll('input[name="coverage"]').forEach(el => el.addEventListener('change', () => {
+  document.getElementById('no-coverage-btn').classList.remove('active');
+  calc();
+}));
+calc();
+</script>
+
+</body>
+</html>
