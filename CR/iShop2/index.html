@@ -1306,9 +1306,35 @@
     }
 
     .motor-a .garantia-row .price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
       font-weight: 700;
       font-size: 14px;
       white-space: nowrap;
+    }
+
+    .motor-a .garantia-row .price-main {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
+      color: #FE5000;
+      letter-spacing: -0.02em;
+    }
+
+    .motor-a .garantia-row .price-main small {
+      font-size: 11px;
+      font-weight: 600;
+      color: #818181;
+      margin-left: 3px;
+    }
+
+    .motor-a .garantia-row .price-sub {
+      font-size: 10px;
+      font-weight: 500;
+      color: #9ca3af;
+      line-height: 1.15;
     }
 
     .motor-a .coverage-grid {
@@ -1811,7 +1837,7 @@
                 <input type="checkbox" id="garantia" checked>
                 Cubre daños de fábrica más allá del período estándar.
               </span>
-              <span class="price" id="garantia-price">$0.00</span>
+              <span class="price" id="garantia-price"></span>
             </label>
           </div>
 
@@ -2392,6 +2418,7 @@
 
     function updateCoverageValuesUI() {
       var paymentInfo = getPaymentInfo();
+      var garantiaInfo = getGarantiaDisplayInfo(paymentInfo);
       ['todoriesgo', 'robo', 'danos'].forEach(function (plan) {
         [24, 18, 12].forEach(function (term) {
           var input = document.querySelector('input[name="coverage"][value="' + plan + ':' + term + '"]');
@@ -2410,7 +2437,43 @@
           if (totalEl) totalEl.textContent = 'Total: ' + fmt(total);
         });
       });
-      document.getElementById('garantia-price').textContent = fmt(garantiaPriceCurrent);
+
+      var garantiaPriceEl = document.getElementById('garantia-price');
+      if (garantiaPriceEl) {
+        garantiaPriceEl.innerHTML = garantiaInfo.ready
+          ? (paymentInfo.isContado
+            ? '<span class="price-main">' + fmt(garantiaInfo.total) + '</span><span class="price-sub">Total: ' + fmt(garantiaInfo.total) + '</span>'
+            : '<span class="price-main">' + fmt(garantiaInfo.monthly) + '<small>/mes</small></span><span class="price-sub">Total: ' + fmt(garantiaInfo.total) + '</span>')
+          : '';
+      }
+    }
+
+    function getGarantiaDisplayInfo(paymentInfo) {
+      var device = getSelectedCategory();
+      var devicePrice = Number(document.getElementById('device-price').value) || 0;
+      var garantiaChecked = document.getElementById('garantia').checked;
+      var groupKey = EXT_GARANTIA_DEVICE_GROUP[device] || 'resto';
+      var groupTable = EXT_GARANTIA[groupKey];
+
+      if (!garantiaChecked || !device || !devicePrice || !groupTable) {
+        return { ready: false, total: 0, monthly: 0, headerText: 'Pendiente' };
+      }
+
+      var ranges = groupTable.ranges || EXT_GARANTIA.ranges;
+      var rangeIdx = findRange(ranges, devicePrice);
+      if (rangeIdx < 0) {
+        return { ready: false, total: 0, monthly: 0, headerText: 'Pendiente' };
+      }
+
+      var total = getGarantiaExtendidaValue(device, devicePrice);
+      var monthly = paymentInfo.isContado ? total : (paymentInfo.months > 0 ? (total / paymentInfo.months) : 0);
+
+      return {
+        ready: true,
+        total: total,
+        monthly: monthly,
+        headerText: 'Si - ' + fmt(paymentInfo.isContado ? total : monthly) + (paymentInfo.isContado ? '' : '/mes')
+      };
     }
 
     function getGarantiaExtendidaValue(deviceKey, priceValue) {
@@ -2447,14 +2510,15 @@
       var devicePrice = Number(document.getElementById('device-price').value) || 0;
       var accessoriesPrice = Number(document.getElementById('accessories-price').value) || 0;
       var plazoText = document.getElementById('plazo').selectedOptions[0].textContent.trim();
-      var garantiaChecked = document.getElementById('garantia').checked;
+      var paymentInfo = getPaymentInfo();
+      var garantiaInfo = getGarantiaDisplayInfo(paymentInfo);
 
       var summaryMap = {
         categoria: categoryText,
         dispositivo: devicePrice > 0 ? fmt(devicePrice) : 'Pendiente',
         accesorios: fmt(accessoriesPrice),
         pago: plazoText,
-        garantia: garantiaChecked ? ('Si - ' + fmt(garantiaPriceCurrent)) : 'No',
+        garantia: garantiaInfo.ready ? garantiaInfo.headerText : 'Pendiente',
         cobertura: getCoverageSummaryText()
       };
 
