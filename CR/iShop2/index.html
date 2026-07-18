@@ -2368,17 +2368,43 @@
       return activeBtn ? activeBtn.dataset.cat : 'iphone';
     }
 
+    function getPaymentInfo() {
+      var plazoValue = document.getElementById('plazo').value;
+      var isContado = plazoValue === 'contado';
+      var months = isContado ? 1 : Number(plazoValue || 1);
+      return { isContado: isContado, months: months };
+    }
+
+    function getSelectedCoverage() {
+      var selected = document.querySelector('input[name="coverage"]:checked');
+      if (!selected || selected.value === 'ninguno') {
+        return { plan: 'ninguno', term: null };
+      }
+
+      var parts = selected.value.split(':');
+      return {
+        plan: parts[0] || 'ninguno',
+        term: parts[1] ? Number(parts[1]) : null
+      };
+    }
+
     function updateCoverageValuesUI() {
+      var paymentInfo = getPaymentInfo();
       ['todoriesgo', 'robo', 'danos'].forEach(function (plan) {
         [24, 18, 12].forEach(function (term) {
           var input = document.querySelector('input[name="coverage"][value="' + plan + ':' + term + '"]');
           if (!input) return;
           var row = input.closest('.coverage-term-row');
           if (!row) return;
-          var total = coverageTotals[plan][term] || 0;
+          var total = (coverageTotals[plan] && coverageTotals[plan][term]) ? coverageTotals[plan][term] : 0;
+          var monthlyByPayment = paymentInfo.months > 0 ? (total / paymentInfo.months) : 0;
           var monthlyEl = row.querySelector('.term-monthly');
           var totalEl = row.querySelector('.term-total');
-          if (monthlyEl) monthlyEl.innerHTML = fmt(total / term) + '<small>/mes</small>';
+          if (monthlyEl) {
+            monthlyEl.innerHTML = paymentInfo.isContado
+              ? fmt(total)
+              : (fmt(monthlyByPayment) + '<small>/mes</small>');
+          }
           if (totalEl) totalEl.textContent = 'Total: ' + fmt(total);
         });
       });
@@ -2552,7 +2578,7 @@
       }
     }
 
-    function hydrateCoverageTables(selectedTerm) {
+    function hydrateCoverageTables() {
       var device = getSelectedCategory();
       var devicePrice = Number(document.getElementById('device-price').value) || 0;
       var data = DB[device];
@@ -2608,38 +2634,23 @@
     function calc() {
       var devicePrice = Number(document.getElementById('device-price').value) || 0;
       var accessoriesPrice = Number(document.getElementById('accessories-price').value) || 0;
-      var plazoValue = document.getElementById('plazo').value;
-      var isContado = plazoValue === 'contado';
-      var plazo = isContado ? 1 : Number(plazoValue);
+      var paymentInfo = getPaymentInfo();
+      var isContado = paymentInfo.isContado;
+      var plazo = paymentInfo.months;
 
       updateBreakdownPresentationByPaymentType(isContado);
 
-      var coberturaSeleccionada = document.querySelector('input[name="coverage"]:checked');
-      if (!coberturaSeleccionada) return;
+      var selectedCoverage = getSelectedCoverage();
+      if (!selectedCoverage) return;
 
-      var coberturaValue = coberturaSeleccionada.value;
-      var plan = 'ninguno';
-      var term = 12;
-      if (coberturaValue !== 'ninguno') {
-        var parts = coberturaValue.split(':');
-        plan = parts[0];
-        term = Number(parts[1]);
-      }
-
-      hydrateCoverageTables(term);
+      hydrateCoverageTables();
       updateCoverageVisibility();
       updateCoverageValuesUI();
       document.getElementById('range-indicator').textContent = rangeMessage;
 
-      coberturaSeleccionada = document.querySelector('input[name="coverage"]:checked');
-      coberturaValue = coberturaSeleccionada ? coberturaSeleccionada.value : 'ninguno';
-      plan = 'ninguno';
-      term = 12;
-      if (coberturaValue !== 'ninguno') {
-        parts = coberturaValue.split(':');
-        plan = parts[0];
-        term = Number(parts[1]);
-      }
+      selectedCoverage = getSelectedCoverage();
+      var plan = selectedCoverage.plan;
+      var term = selectedCoverage.term || 12;
 
       var garantia = document.getElementById('garantia').checked;
       var garantiaPrice = garantia ? garantiaPriceCurrent : 0;
@@ -2654,7 +2665,7 @@
       var coverageMonthly = 0;
       if (!isContado) {
         garantiaMonthly = garantia ? (garantiaPrice / plazo) : 0;
-        coverageMonthly = coverageTotal > 0 ? (coverageTotal / coverageTerm) : 0;
+        coverageMonthly = coverageTotal > 0 ? (coverageTotal / plazo) : 0;
       }
 
       var lineSubtitles = {
@@ -2698,6 +2709,28 @@
       updateAccordionSummaries();
     }
 
+    function setupAutoRecalculation() {
+      var quoteRoot = document.querySelector('.motor-a');
+      if (!quoteRoot) return;
+
+      quoteRoot.addEventListener('input', function (event) {
+        var target = event.target;
+        if (!target.matches('input[type="number"], input[type="text"], input[type="range"], textarea')) return;
+        calc();
+      });
+
+      quoteRoot.addEventListener('change', function (event) {
+        var target = event.target;
+        if (!target.matches('input, select, textarea')) return;
+
+        if (target.name === 'coverage') {
+          document.getElementById('no-coverage-btn').classList.remove('active');
+        }
+
+        calc();
+      });
+    }
+
     /**********************
      EVENTOS
     **********************/
@@ -2715,29 +2748,6 @@
       document.getElementById('coverage-none').checked = true;
       document.getElementById('no-coverage-btn').classList.add('active');
       calc();
-    });
-
-    document.getElementById('device-price').addEventListener('input', function () {
-      calc();
-    });
-
-    document.getElementById('accessories-price').addEventListener('input', function () {
-      calc();
-    });
-
-    document.getElementById('plazo').addEventListener('change', function () {
-      calc();
-    });
-
-    document.getElementById('garantia').addEventListener('change', function () {
-      calc();
-    });
-
-    document.querySelectorAll('input[name="coverage"]').forEach(function (el) {
-      el.addEventListener('change', function () {
-        document.getElementById('no-coverage-btn').classList.remove('active');
-        calc();
-      });
     });
 
     var observer = new IntersectionObserver(function (entries) {
@@ -2759,6 +2769,7 @@
      INIT
     **********************/
     setupAccordionFlow();
+    setupAutoRecalculation();
     calc();
 
     window.addEventListener('resize', function () {
