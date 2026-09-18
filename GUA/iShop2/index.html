@@ -895,6 +895,12 @@
       transform: translateY(-4px) scale(1.012);
     }
 
+    .platinum-card {
+      grid-column: 1 / -1;
+      width: min(100%, 420px);
+      justify-self: center;
+    }
+
     .glow-brand {
       box-shadow: 0 8px 32px rgba(254, 80, 0, 0.18), 0 0 0 2px rgba(254, 80, 0, 0.15);
     }
@@ -1945,7 +1951,7 @@
         return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:' + (isHighlight ? '2px' : '1.5px') + ' solid ' + rowBorder + ';border-radius:14px;padding:' + (isHighlight ? '14px 16px' : '12px 14px') + ';box-shadow:' + rowShadow + ';transform:' + rowTransform + ';"><div><div style="font-size:' + (isHighlight ? '13px' : '12px') + ';font-weight:' + labelWeight + ';color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
       }).join('');
 
-      var extraClass = recommended ? 'recommended-pulse' : '';
+      var extraClass = recommended ? 'recommended-pulse platinum-card' : '';
       return '<div class="reveal card-hover ' + extraClass + '" style="background:#fff;border:1.5px solid ' + theme.borderColor + ';border-radius:24px;overflow:hidden;display:flex;flex-direction:column;height:100%;box-shadow:0 8px 32px ' + theme.shadowColor + '">'
         + '<div style="' + theme.headerGrad.replace('linear-gradient', 'background:linear-gradient') + ';padding:16px 18px;">'
         + '<div style="display:flex;justify-content:center;margin-bottom:10px;">'
