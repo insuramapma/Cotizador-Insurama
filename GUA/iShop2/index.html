@@ -1737,6 +1737,13 @@
 
     function fmt(n) { return 'Q' + formatThousands(n, 2); }
 
+    function calculateMonthlyCoverage(totalCoverage, months) {
+      var total = Number(totalCoverage);
+      var period = Number(months);
+      if (!isFinite(total) || !isFinite(period) || period <= 0) return 0;
+      return Number((total / period).toFixed(2));
+    }
+
     function parsePriceInput(value) {
       var normalized = String(value || '').replace(/[^\d.]/g, '');
       var firstDot = normalized.indexOf('.');
@@ -1878,8 +1885,11 @@
       'Ext. Garantia': '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>'
     };
 
-    function buildCard(title, desc, recommended, plans) {
+    function buildCard(title, desc, recommended, plans, options) {
+      options = options || {};
       var isSilverCard = !!recommended;
+      var forceMonthly = !!options.forceMonthly;
+      var recommendedMonth = options.recommendedMonth || 24;
       var theme = isSilverCard
         ? {
           borderColor: 'rgba(141, 151, 167, 0.4)',
@@ -1918,8 +1928,8 @@
 
       var plansHtml = plans.map(function (p, i) {
         var total = p.p;
-        var monthly = total / 12;
-        var isHighlight = p.m === 24;
+        var monthly = p.monthly !== undefined ? p.monthly : calculateMonthlyCoverage(total, p.m);
+        var isHighlight = p.m === recommendedMonth;
         var rowBg = isHighlight ? 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, ' + theme.lightBg + ' 100%)' : '#f8f8f8';
         var rowBorder = isHighlight ? theme.highlightBorder : '#e5e7eb';
         var tariffColor = theme.tariffTextColor;
@@ -1928,10 +1938,10 @@
         var labelWeight = isHighlight ? '700' : '500';
         var rowShadow = isHighlight ? '0 10px 22px ' + theme.shadowColor : 'none';
         var rowTransform = isHighlight ? 'translateY(-2px) scale(1.01)' : 'none';
-        var priceDisplay = showMonthly
+        var priceDisplay = (forceMonthly || showMonthly)
           ? '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:600;color:' + tariffColor + '">/mes</span></div>'
           : '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(total) + '</span></div>';
-        var highlight = isHighlight ? '<div style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:' + theme.accentBg + ';margin-top:6px;padding:4px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:0.08em">RECOMENDADA</div>' : '';
+        var highlight = isHighlight ? '<div style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:' + theme.accentBg + ';margin-top:6px;padding:4px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:0.08em">RECOMENDADO</div>' : '';
         return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:' + (isHighlight ? '2px' : '1.5px') + ' solid ' + rowBorder + ';border-radius:14px;padding:' + (isHighlight ? '14px 16px' : '12px 14px') + ';box-shadow:' + rowShadow + ';transform:' + rowTransform + ';"><div><div style="font-size:' + (isHighlight ? '13px' : '12px') + ';font-weight:' + labelWeight + ';color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
       }).join('');
 
@@ -1953,19 +1963,20 @@
       var source = def.values || data[def.key];
       if (!source) return null;
 
-      var plans = def.months.map(function (month) {
-        if (month === 36 && (!source[36] || source[36][rangeIdx] === undefined || source[36][rangeIdx] === null)) {
-          var base24 = source[24] && source[24][rangeIdx] !== undefined && source[24][rangeIdx] !== null ? source[24][rangeIdx] : null;
-          if (base24 !== null) return { m: 36, p: Number((base24 * 1.5).toFixed(2)) };
-        }
+      var totalCoverage = source[36] && source[36][rangeIdx] !== undefined && source[36][rangeIdx] !== null
+        ? source[36][rangeIdx]
+        : null;
+      if (totalCoverage === null) return null;
 
-        return source[month] && source[month][rangeIdx] !== undefined && source[month][rangeIdx] !== null
-          ? { m: month, p: source[month][rangeIdx] }
-          : null;
-      }).filter(function (plan) { return plan !== null; });
+      var plans = [36, 24, 12].map(function (month) {
+        return {
+          m: month,
+          p: totalCoverage,
+          monthly: calculateMonthlyCoverage(totalCoverage, month)
+        };
+      });
 
-      if (plans.length === 0) return null;
-      return buildCard(def.title, def.desc, def.recommended, plans);
+      return buildCard(def.title, def.desc, def.recommended, plans, { recommendedMonth: 36 });
     }
 
     function findWarrantyRange(ranges, value) {
