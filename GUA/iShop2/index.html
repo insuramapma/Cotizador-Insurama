@@ -1962,19 +1962,20 @@
     function buildCoverageCard(def, data, rangeIdx) {
       var source = def.values || data[def.key];
       if (!source) return null;
-
-      var totalCoverage = source[36] && source[36][rangeIdx] !== undefined && source[36][rangeIdx] !== null
-        ? source[36][rangeIdx]
-        : null;
-      if (totalCoverage === null) return null;
-
       var plans = [36, 24, 12].map(function (month) {
+        var totalCoverage = source[month] && source[month][rangeIdx] !== undefined && source[month][rangeIdx] !== null
+          ? source[month][rangeIdx]
+          : null;
+        if (totalCoverage === null) return null;
+
         return {
           m: month,
           p: totalCoverage,
           monthly: calculateMonthlyCoverage(totalCoverage, month)
         };
-      });
+      }).filter(function (plan) { return plan !== null; });
+
+      if (plans.length === 0) return null;
 
       return buildCard(def.title, def.desc, def.recommended, plans, { recommendedMonth: 36 });
     }
