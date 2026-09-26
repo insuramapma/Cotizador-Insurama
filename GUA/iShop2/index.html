@@ -1685,6 +1685,7 @@
   DB.macbook = DB.mac;
     // DB.otrosGamaGris = DB.mac;
     DB.iwatch = DB.watch;
+  DB.airpods = DB.watch;
     // DB.airpods = {
     //   ranges: [[100, 200], [200, 300], [300, 500], [500, 800]],
     //   todoRiesgo: DB.watch.todoRiesgo,
@@ -1789,12 +1790,13 @@
     }
 
     const DEVICE_OPTIONS = [
-      { id: 'iphone', label: 'iPhone', icon: 'phone' },
+      { id: 'iphone', label: 'Celular', icon: 'phone' },
       { id: 'ipad', label: 'iPad', icon: 'tablet' },
-      { id: 'iwatch', label: 'iWatch', icon: 'watch' },
+      { id: 'iwatch', label: 'Apple Watch', icon: 'watch' },
       { id: 'macbook', label: 'MacBook', icon: 'laptop' },
-      { id: 'imac', label: 'iMac', icon: 'desktop' }
-      // { id: 'airpods', label: 'AirPods', icon: 'headphones' },
+      { id: 'imac', label: 'iMac', icon: 'desktop' },
+      { id: 'airpods', label: 'AirPods', icon: 'headphones' },
+      { id: 'otros', label: 'Otros', icon: 'speaker' }
       // { id: 'accesoriosElectronicos', label: 'Accesorios Electrónicos', icon: 'accessory' },
       // { id: 'otrosGamaGris', label: 'Otros Gama Gris (Parlantes)', icon: 'speaker' }
     ];
@@ -1854,6 +1856,12 @@
         { key: 'todoRiesgo', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.imac.roboHurto },
         { key: 'danoAccidental', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.imac.soloRotura }
       ],
+      airpods: [
+        { key: 'todoRiesgo', title: 'Todo Riesgo', desc: 'Protección completa del equipo', recommended: true, months: [36, 24, 18, 12], values: DB.airpods.todoRiesgo },
+        { key: 'todoRiesgo', title: 'Daños Accidentales', desc: 'Cobertura por roturas y líquidos', recommended: false, months: [36, 24, 18, 12], values: DB.airpods.todoRiesgo },
+        { key: 'roboHurto', title: 'Robo & Hurto', desc: 'Protección contra sustracción del equipo', recommended: false, months: [36, 24, 18, 12], values: DB.airpods.roboHurto },
+        { key: 'todoRiesgo', title: 'Rotura Pantalla Delantera', desc: 'Cobertura de pantalla frontal', recommended: false, months: [36, 24, 18, 12], values: DB.airpods.todoRiesgo }
+      ],
       // airpods: [],
       // accesoriosElectronicos: [],
       // otrosGamaGris: [],
@@ -1865,9 +1873,27 @@
       ]
     };
 
-    const WARRANTY_CARDS_BY_DEVICE = {};
+    const WARRANTY_CARDS_BY_DEVICE = {
+      iphone: { source: 'celulares', months: [24, 12] },
+      ipad: { source: 'resto', months: [36] },
+      iwatch: { source: 'resto', months: [36] },
+      macbook: { source: 'resto', months: [36] },
+      imac: { source: 'resto', months: [36] },
+      airpods: { source: 'resto', months: [36] },
+      otros: { source: 'resto', months: [36] }
+    };
 
-    const DEVICES_WITH_RANGE_COVERAGE = ['iphone', 'macbook', 'ipad', 'iwatch', 'imac'];
+    const WARRANTY_DISPLAY_VALUES = {
+      celulares: {
+        12: { 0: { total: 99.91 }, 1: { total: 199.82 } },
+        24: { 0: { total: 149.86 }, 1: { total: 299.72 } }
+      },
+      resto: {
+        36: { 0: { total: 44.96 } }
+      }
+    };
+
+    const DEVICES_WITH_RANGE_COVERAGE = ['iphone', 'macbook', 'ipad', 'iwatch', 'imac', 'airpods'];
 
     const CARD_THEMES = {
       'Todo Riesgo': { borderColor: 'rgba(254,80,0,0.25)', headerGrad: 'linear-gradient(135deg,#FE5000 0%,#c23d00 100%)', accentBg: '#FE5000', lightBg: 'rgba(254,80,0,0.07)', highlightBorder: 'rgba(254,80,0,0.35)', iconColor: '#FE5000', shadowColor: 'rgba(254,80,0,0.1)' },
@@ -1993,37 +2019,53 @@
       return -1;
     }
 
-    function buildWarrantyCards(dev, val) {
-      var warranties = WARRANTY_CARDS_BY_DEVICE[dev] || [];
-      if (warranties.length === 0) return [];
+    function buildWarrantyCard(dev, val) {
+      var warranty = WARRANTY_CARDS_BY_DEVICE[dev];
+      if (!warranty) return null;
 
-      return warranties.map(function (warranty) {
-        var sourceGroup = warranty.source === 'celulares' ? EXT_GARANTIA.celulares : EXT_GARANTIA.resto;
-        var sourceRanges = sourceGroup.ranges || EXT_GARANTIA.ranges;
-        var warrantyRangeIdx = findWarrantyRange(sourceRanges, val);
-        if (warrantyRangeIdx < 0) return null;
+      var sourceGroup = EXT_GARANTIA[warranty.source];
+      var sourceRanges = sourceGroup.ranges || EXT_GARANTIA.ranges;
+      var rangeIdx = findWarrantyRange(sourceRanges, val);
+      if (rangeIdx < 0) return null;
 
-        var monthList = Array.isArray(warranty.months) ? warranty.months : [warranty.months];
-        var plans = monthList.map(function (month) {
-          var priceSeries = sourceGroup[month];
-          if (!priceSeries) return null;
+      var options = warranty.months.map(function (month) {
+        var basePrice = sourceGroup[month] && sourceGroup[month][rangeIdx];
+        if (basePrice === null || basePrice === undefined) return null;
 
-          var price = priceSeries[warrantyRangeIdx];
-          if (price === null || price === undefined) return null;
+        var displayValues = WARRANTY_DISPLAY_VALUES[warranty.source][month][rangeIdx];
+        var total = displayValues ? displayValues.total : Number((basePrice * 1.1246 * 1.12).toFixed(2));
+        return { label: '12 + ' + month + ' MESES', months: month, total: total };
+      }).filter(function (option) { return option !== null; });
 
-          return { m: month, p: price };
-        }).filter(function (plan) { return plan !== null; });
+      if (options.length === 0) return null;
 
-        if (plans.length === 0) return null;
-        return buildCard(warranty.title, warranty.desc, false, plans);
-      }).filter(function (card) { return card !== null; });
+      var optionRows = options.map(function (option, index) {
+        var isRecommended = index === 0;
+        var displayedPrice = showMonthly ? Number((option.total / option.months).toFixed(2)) : option.total;
+        var periodSuffix = showMonthly ? '<span style="font-size:11px;font-weight:600;color:#6b7280">/mes</span>' : '';
+        var rowBackground = isRecommended ? 'linear-gradient(135deg,#fff 0%,#eef0f2 100%)' : '#f8f9fa';
+        var rowBorder = isRecommended ? '2px solid #aeb4bc' : '1.5px solid #e1e4e8';
+        var badge = isRecommended
+          ? '<div style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:#626b76;margin-top:6px;padding:4px 8px;border-radius:999px;text-transform:uppercase">RECOMENDADO</div>'
+          : '';
+
+        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:' + rowBackground + ';border:' + rowBorder + ';border-radius:14px;padding:' + (isRecommended ? '14px 16px' : '12px 14px') + ';">'
+          + '<div><div style="font-size:' + (isRecommended ? '13px' : '12px') + ';font-weight:' + (isRecommended ? '700' : '500') + ';color:#4b5563">' + option.label + '</div>' + badge + '</div>'
+          + '<div style="text-align:right;flex-shrink:0"><div style="font-size:' + (isRecommended ? '24px' : '20px') + ';font-weight:700;color:#374151;line-height:1">' + fmt(displayedPrice) + periodSuffix + '</div></div>'
+          + '</div>';
+      }).join('');
+
+      return '<div class="reveal card-hover platinum-card" style="min-height:456px;background:#fff;border:1.5px solid #d5d9de;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(55,65,81,0.12)">'
+        + '<div style="background:linear-gradient(135deg,#f2f3f5 0%,#d8dce1 54%,#b8bec6 100%);padding:16px 18px;text-align:center">'
+        + '<div style="display:flex;justify-content:center;margin-bottom:10px"><img src="img/iShop Care Garantia Extendia II - NEW.png" alt="iShop Care Garantía Extendida II" style="width:100%;max-width:190px;height:auto;object-fit:contain;display:block"></div>'
+        + '<div style="color:#374151;font-weight:600;font-size:15px">Garantía Extendida</div>'
+        + '<div style="color:#626b76;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px">Extensión de garantía del fabricante</div>'
+        + '</div><div style="padding:16px;display:flex;flex-direction:column;gap:8px;flex:1">' + optionRows + '</div></div>';
     }
 
     function getWarrantyRanges(dev) {
-      var warranties = WARRANTY_CARDS_BY_DEVICE[dev] || [];
-      if (warranties.length === 0) return null;
-
-      var warranty = warranties[0];
+      var warranty = WARRANTY_CARDS_BY_DEVICE[dev];
+      if (!warranty) return null;
       var sourceGroup = warranty.source === 'celulares' ? EXT_GARANTIA.celulares : EXT_GARANTIA.resto;
       return sourceGroup.ranges || EXT_GARANTIA.ranges;
     }
@@ -2042,21 +2084,23 @@
       var cards = [];
       var dev = currentDevice;
       var data = DB[dev];
-      if (!data || !data.ranges) {
+      var hasRangeCoverage = DEVICES_WITH_RANGE_COVERAGE.indexOf(dev) !== -1;
+      if (hasRangeCoverage && (!data || !data.ranges)) {
         container.innerHTML = '<div class="rounded-[20px] p-10 text-center col-span-full" style="background:#fff;border:1px solid #f0f0f0"><p class="font-medium" style="color:#070200">No se encontraron planes para este dispositivo</p><p class="text-xs mt-1" style="color:#524C4A">Selecciona otro dispositivo o verifica la configuracion</p></div>';
         rangeInd.classList.add('hidden');
         return;
       }
-      var hasRangeCoverage = DEVICES_WITH_RANGE_COVERAGE.indexOf(dev) !== -1;
-      var activeRanges = hasRangeCoverage ? data.ranges : (getWarrantyRanges(dev) || data.ranges);
+      var activeRanges = hasRangeCoverage ? data.ranges : (getWarrantyRanges(dev) || (data && data.ranges));
+      if (!activeRanges || activeRanges.length === 0) {
+        container.innerHTML = '';
+        rangeInd.classList.add('hidden');
+        return;
+      }
       var rangeIdx = hasRangeCoverage ? findRange(activeRanges, val) : findWarrantyRange(activeRanges, val);
 
       if (rangeIdx >= 0) {
         rangeInd.classList.remove('hidden');
         document.getElementById('rangeText').textContent = 'Rango detectado: Q' + formatThousands(activeRanges[rangeIdx][0], 0) + ' - Q' + formatThousands(activeRanges[rangeIdx][1], 0);
-
-        var warrantyCards = buildWarrantyCards(dev, val);
-        cards = cards.concat(warrantyCards);
 
         if (hasRangeCoverage) {
           var coverageCards = COVERAGE_CARDS_BY_DEVICE[dev] || [];
@@ -2065,6 +2109,9 @@
             if (card) cards.push(card);
           });
         }
+
+        var warrantyCard = buildWarrantyCard(dev, val);
+        if (warrantyCard) cards.push(warrantyCard);
       } else {
         rangeInd.classList.remove('hidden');
         document.getElementById('rangeText').textContent = 'Valor fuera de rango. Rango valido: Q' + formatThousands(activeRanges[0][0], 0) + ' - Q' + formatThousands(activeRanges[activeRanges.length - 1][1], 0);
