@@ -1988,9 +1988,9 @@
           <div class="section">
             <div class="step-label"><span class="n">5</span>Plan de seguro</div>
             <div class="coverage-grid" id="coverage-grid"></div>
-            <div id="extended-warranty-container"></div>
             <input type="radio" name="coverage" value="ninguno" id="coverage-none" style="display:none">
             <button type="button" class="no-coverage-btn" id="no-coverage-btn">Continuar sin seguro</button>
+            <div id="extended-warranty-container"></div>
           </div>
 
         </div>
@@ -1999,7 +1999,7 @@
           <div class="summary-title" id="summary-breakdown-title">Desglose de cuota mensual</div>
           <div id="breakdown"></div>
           <div class="summary-total" id="summary-total-row">
-            <span class="label">Total cuota mensual</span>
+            <span class="label" id="total-label">Total cuota mensual</span>
             <span class="value" id="total-cuota">Q0.00</span>
           </div>
           <div class="summary-note" id="range-indicator"></div>
@@ -2448,6 +2448,7 @@
     let currentCoverageTable = {};
     let currentCoverageMeta = {};
     let selectedCoverageValue = null;
+    let selectedWarrantyValue = null;
 
     /**********************
      FUNCIONES
@@ -2490,13 +2491,14 @@
         : Number((baseTotal * 1.1246 * 1.12).toFixed(2));
     }
 
-    function renderExtendedWarrantyCard(device, devicePrice, paymentInfo, preferredCoverageValue) {
+    function renderExtendedWarrantyCard(device, devicePrice, paymentInfo, preferredWarrantyValue) {
       var container = document.getElementById('extended-warranty-container');
       var sourceKey = device === 'iphone' ? 'celulares' : 'resto';
       var source = EXTENDED_WARRANTY[sourceKey];
 
       if (!container || !devicePrice) {
         if (container) container.innerHTML = '';
+        selectedWarrantyValue = null;
         return;
       }
 
@@ -2510,6 +2512,7 @@
 
       if (rangeIndex < 0) {
         container.innerHTML = '';
+        selectedWarrantyValue = null;
         return;
       }
 
@@ -2518,7 +2521,8 @@
         return { month: month, total: getExtendedWarrantyTotal(device, devicePrice, month) };
       });
       var highestTotal = Math.max.apply(null, totals.map(function (option) { return option.total; }));
-      var rows = months.map(function (month, index) {
+      var previousSelected = preferredWarrantyValue || selectedWarrantyValue;
+      var rows = months.map(function (month) {
         var total = getExtendedWarrantyTotal(device, devicePrice, month);
         if (!total) return '';
         var displayedAmount = paymentInfo.isContado
@@ -2526,12 +2530,12 @@
           : Number((total / paymentInfo.months).toFixed(2));
         var isRecommended = total === highestTotal;
         var optionValue = 'extendedWarranty:' + month;
-        var isSelected = preferredCoverageValue === optionValue;
+        var isSelected = previousSelected === optionValue;
         var price = fmt(displayedAmount) + (paymentInfo.isContado ? '' : '<small>/mes</small>');
         var badge = isRecommended ? '<span class="term-badge">RECOMENDADA</span>' : '';
 
         return '<label class="coverage-term-row extended-warranty-option ' + (isRecommended ? 'is-highlight ' : '') + (isSelected ? 'is-selected' : '') + '">'
-          + '<input type="radio" name="coverage" value="' + optionValue + '"' + (isSelected ? ' checked' : '') + '>'
+          + '<input type="radio" name="warranty" value="' + optionValue + '"' + (isSelected ? ' checked' : '') + '>'
           + '<div class="term-left"><span class="term-months">12 + ' + month + ' MESES</span>' + badge + '</div>'
           + '<div class="term-right"><span class="term-monthly">' + price + '</span></div>'
           + '</label>';
@@ -2539,6 +2543,7 @@
 
       if (!rows) {
         container.innerHTML = '';
+        selectedWarrantyValue = null;
         return;
       }
 
@@ -2547,18 +2552,36 @@
         + '<div class="coverage-logo-wrap"><img class="coverage-logo" src="img/iShop Care Garantia Extendia II - NEW.png" alt="iShop Care Garantía Extendida II"></div>'
         + '<div class="coverage-title">Garantía Extendida</div>'
         + '<div class="coverage-subtitle">Extensión de garantía del fabricante</div>'
-        + '</div><div class="coverage-terms">' + rows + '</div></div>';
+        + '</div><div class="coverage-terms">' + rows + '</div>'
+        + '<input type="radio" name="warranty" value="ninguna" id="warranty-none" style="display:none">'
+        + '<button type="button" class="no-coverage-btn" id="no-warranty-btn">Continuar sin garantía</button>'
+        + '</div>';
 
-      if (!container.querySelector('input[name="coverage"]:checked')
-        && !document.getElementById('coverage-none').checked
-        && !document.querySelector('#coverage-grid input[name="coverage"]:checked')) {
-        var firstWarrantyOption = container.querySelector('input[name="coverage"]');
-        if (firstWarrantyOption) {
-          firstWarrantyOption.checked = true;
-          firstWarrantyOption.closest('.coverage-term-row').classList.add('is-selected');
-          selectedCoverageValue = firstWarrantyOption.value;
-        }
+      var noWarrantyInput = document.getElementById('warranty-none');
+      var noWarrantyBtn = document.getElementById('no-warranty-btn');
+
+      if (previousSelected === 'ninguna') {
+        if (noWarrantyInput) noWarrantyInput.checked = true;
+        if (noWarrantyBtn) noWarrantyBtn.classList.add('active');
+        selectedWarrantyValue = 'ninguna';
+        syncCoverageSelectionVisual();
+        return;
       }
+
+      var selectedInput = Array.prototype.find.call(
+        container.querySelectorAll('input[name="warranty"]'),
+        function (input) { return input.value === previousSelected; }
+      ) || null;
+
+      if (!selectedInput) {
+        selectedInput = container.querySelector('input[name="warranty"]');
+      }
+
+      if (selectedInput) selectedInput.checked = true;
+      if (noWarrantyInput) noWarrantyInput.checked = false;
+      if (noWarrantyBtn) noWarrantyBtn.classList.remove('active');
+
+      selectedWarrantyValue = selectedInput ? selectedInput.value : 'ninguna';
       syncCoverageSelectionVisual();
     }
 
@@ -2573,6 +2596,16 @@
         plan: parts[0] || 'ninguno',
         term: parts[1] ? Number(parts[1]) : null
       };
+    }
+
+    function getSelectedWarranty() {
+      var selected = document.querySelector('input[name="warranty"]:checked');
+      if (!selected || selected.value === 'ninguna') {
+        return { term: null };
+      }
+
+      var parts = selected.value.split(':');
+      return { term: parts[1] ? Number(parts[1]) : null };
     }
 
     function buildCoverageCardHtml(meta, termsData) {
@@ -2625,14 +2658,13 @@
         card.classList.remove('is-active');
       });
 
-      var checked = document.querySelector('.motor-a input[name="coverage"]:checked');
-      if (!checked) return;
+      document.querySelectorAll('.motor-a input[name="coverage"]:checked, .motor-a input[name="warranty"]:checked').forEach(function (checked) {
+        var activeRow = checked.closest('.coverage-term-row');
+        if (activeRow) activeRow.classList.add('is-selected');
 
-      var activeRow = checked.closest('.coverage-term-row');
-      if (activeRow) activeRow.classList.add('is-selected');
-
-      var activeCard = checked.closest('.coverage-card');
-      if (activeCard) activeCard.classList.add('is-active');
+        var activeCard = checked.closest('.coverage-card');
+        if (activeCard) activeCard.classList.add('is-active');
+      });
     }
 
     function renderCoverageGrid(preferredValue) {
@@ -2668,7 +2700,6 @@
       }
 
       var selectedInput = null;
-      var isWarrantySelection = previousSelected && previousSelected.indexOf('extendedWarranty:') === 0;
       if (previousSelected) {
         selectedInput = Array.prototype.find.call(
           grid.querySelectorAll('input[name="coverage"]'),
@@ -2676,7 +2707,7 @@
         ) || null;
       }
 
-      if (!selectedInput && !isWarrantySelection) {
+      if (!selectedInput) {
         var first = grid.querySelector('input[name="coverage"]');
         if (first) selectedInput = first;
       }
@@ -2685,7 +2716,7 @@
       if (noCoverageInput) noCoverageInput.checked = false;
       if (noCoverageBtn) noCoverageBtn.classList.remove('active');
 
-      selectedCoverageValue = selectedInput ? selectedInput.value : (isWarrantySelection ? previousSelected : null);
+      selectedCoverageValue = selectedInput ? selectedInput.value : null;
       syncCoverageSelectionVisual();
     }
 
@@ -2699,9 +2730,7 @@
         var row = input.closest('.coverage-term-row');
         if (!row) return;
 
-        var total = plan === 'extendedWarranty'
-          ? getExtendedWarrantyTotal(getSelectedCategory(), Number(document.getElementById('device-price').value) || 0, term)
-          : (currentCoverageTable[plan] && currentCoverageTable[plan][term] ? currentCoverageTable[plan][term] : 0);
+        var total = (currentCoverageTable[plan] && currentCoverageTable[plan][term]) ? currentCoverageTable[plan][term] : 0;
         var monthlyByPayment = paymentInfo.months > 0 ? (total / paymentInfo.months) : 0;
         var monthlyEl = row.querySelector('.term-monthly');
         var totalEl = row.querySelector('.term-total');
@@ -2727,6 +2756,15 @@
       return months ? (title + ' - ' + months) : title;
     }
 
+    function getWarrantySummaryText() {
+      var selected = document.querySelector('input[name="warranty"]:checked');
+      if (!selected || selected.value === 'ninguna') return null;
+      var row = selected.closest('.coverage-term-row');
+      var monthsEl = row ? row.querySelector('.term-months') : null;
+      var months = monthsEl ? monthsEl.textContent.trim() : 'Garantía Extendida';
+      return 'Garantía Extendida - ' + months;
+    }
+
     function updateAccordionSummaries() {
       var categoryBtn = document.querySelector('#category-grid .category-btn.active');
       var categoryText = categoryBtn ? categoryBtn.textContent.trim() : 'Sin seleccionar';
@@ -2734,12 +2772,18 @@
       var accessoriesPrice = Number(document.getElementById('accessories-price').value) || 0;
       var plazoText = document.getElementById('plazo').selectedOptions[0].textContent.trim();
 
+      var coverageText = getCoverageSummaryText();
+      var warrantyText = getWarrantySummaryText();
+      var combinedCobertura = warrantyText
+        ? (coverageText === 'Sin seguro' ? warrantyText : coverageText + ' + ' + warrantyText)
+        : coverageText;
+
       var summaryMap = {
         categoria: categoryText,
         dispositivo: devicePrice > 0 ? fmt(devicePrice) : 'Pendiente',
         accesorios: fmt(accessoriesPrice),
         pago: plazoText,
-        cobertura: getCoverageSummaryText()
+        cobertura: combinedCobertura
       };
 
       Object.keys(summaryMap).forEach(function (key) {
@@ -2898,10 +2942,13 @@
 
       updateBreakdownPresentationByPaymentType(isContado);
 
-      var selectedBefore = document.querySelector('input[name="coverage"]:checked');
-      var preferredCoverageValue = selectedBefore ? selectedBefore.value : selectedCoverageValue;
+      var selectedCoverageBefore = document.querySelector('input[name="coverage"]:checked');
+      var preferredCoverageValue = selectedCoverageBefore ? selectedCoverageBefore.value : selectedCoverageValue;
+      var selectedWarrantyBefore = document.querySelector('input[name="warranty"]:checked');
+      var preferredWarrantyValue = selectedWarrantyBefore ? selectedWarrantyBefore.value : selectedWarrantyValue;
+
       hydrateCoverageTables(preferredCoverageValue);
-      renderExtendedWarrantyCard(getSelectedCategory(), devicePrice, paymentInfo, preferredCoverageValue);
+      renderExtendedWarrantyCard(getSelectedCategory(), devicePrice, paymentInfo, preferredWarrantyValue);
       updateCoverageValuesUI();
       document.getElementById('range-indicator').textContent = rangeMessage;
 
@@ -2909,22 +2956,19 @@
       var plan = selectedCoverage.plan;
       var term = selectedCoverage.term || (isContado ? 12 : plazo);
 
-      var coverageTotal = plan === 'extendedWarranty'
-        ? getExtendedWarrantyTotal(getSelectedCategory(), devicePrice, term)
-        : ((plan === 'ninguno' || !currentCoverageTable[plan]) ? 0 : (currentCoverageTable[plan][term] || 0));
+      var selectedWarranty = getSelectedWarranty();
+      var warrantyTerm = selectedWarranty.term;
+
+      var coverageTotal = (plan === 'ninguno' || !currentCoverageTable[plan]) ? 0 : (currentCoverageTable[plan][term] || 0);
+      var warrantyTotal = warrantyTerm ? getExtendedWarrantyTotal(getSelectedCategory(), devicePrice, warrantyTerm) : 0;
 
       var deviceTotal = devicePrice + accessoriesPrice;
-      var coberturaTotal = coverageTotal;
 
-      var coverageMonthly = 0;
-      if (!isContado) {
-        coverageMonthly = coverageTotal > 0 ? (coverageTotal / plazo) : 0;
-      }
+      var coverageMonthly = (!isContado && coverageTotal > 0) ? (coverageTotal / plazo) : 0;
+      var warrantyMonthly = (!isContado && warrantyTotal > 0) ? (warrantyTotal / plazo) : 0;
 
       var lineSubtitles = {
-        'Equipo': 'Dispositivo + Accesorios',
-        'Cobertura': 'Seguro',
-        'Garantía Extendida': 'Garantía del dispositivo'
+        'Equipo': 'Dispositivo + Accesorios'
       };
 
       var lines = [];
@@ -2932,10 +2976,17 @@
         var equipoAmount = isContado ? deviceTotal : deviceTotal / plazo;
         lines.push({ name: 'Equipo', amount: equipoAmount, suffix: isContado ? ' Pago Único' : '/mes' });
       }
-      if (coberturaTotal > 0) {
-        var coberturaAmount = isContado ? coberturaTotal : coverageMonthly;
-        var coverageLineName = plan === 'extendedWarranty' ? 'Garantía Extendida' : 'Cobertura';
-        lines.push({ name: coverageLineName, amount: coberturaAmount, suffix: isContado ? ' Pago Único' : '/mes' });
+      var coberturaSubtitle = null;
+      if (coverageTotal > 0 && warrantyTotal > 0) {
+        coberturaSubtitle = 'Seguro + Garantía';
+      } else if (coverageTotal > 0) {
+        coberturaSubtitle = 'Seguro';
+      } else if (warrantyTotal > 0) {
+        coberturaSubtitle = 'Garantía';
+      }
+      if (coberturaSubtitle) {
+        var coberturaAmount = isContado ? (coverageTotal + warrantyTotal) : (coverageMonthly + warrantyMonthly);
+        lines.push({ name: 'Cobertura', subtitle: coberturaSubtitle, amount: coberturaAmount, suffix: isContado ? ' Pago Único' : '/mes' });
       }
 
       var breakdown = document.getElementById('breakdown');
@@ -2950,7 +3001,7 @@
         row.className = 'summary-row';
         row.innerHTML =
           '<div><div class="summary-row-label">' + l.name + '</div>'
-          + '<div class="summary-row-sub">' + lineSubtitles[l.name] + '</div></div>'
+          + '<div class="summary-row-sub">' + (l.subtitle || lineSubtitles[l.name]) + '</div></div>'
           + '<span class="summary-row-amount">' + fmt(l.amount) + l.suffix + '</span>';
         breakdown.appendChild(row);
       });
@@ -2959,6 +3010,11 @@
         document.getElementById('total-cuota').textContent = fmt(totalContado) + ' Pago Único';
       } else {
         document.getElementById('total-cuota').textContent = fmt(totalMensual) + '/mes';
+      }
+
+      var totalLabelEl = document.getElementById('total-label');
+      if (totalLabelEl) {
+        totalLabelEl.textContent = isContado ? 'Importe total' : 'Total cuota mensual';
       }
 
       updateAccordionSummaries();
@@ -2978,7 +3034,7 @@
         var target = event.target;
         if (!target.matches('input, select, textarea')) return;
 
-        if (target.name === 'coverage') {
+        if (target.name === 'coverage' || target.name === 'warranty') {
           return;
         }
 
@@ -3003,11 +3059,11 @@
       if (warrantyContainer) {
         warrantyContainer.addEventListener('change', function (event) {
           var target = event.target;
-          if (!target || target.name !== 'coverage') return;
+          if (!target || target.name !== 'warranty') return;
 
-          selectedCoverageValue = target.value;
-          document.getElementById('no-coverage-btn').classList.remove('active');
-          document.getElementById('coverage-none').checked = false;
+          selectedWarrantyValue = target.value;
+          document.getElementById('no-warranty-btn').classList.remove('active');
+          document.getElementById('warranty-none').checked = false;
           syncCoverageSelectionVisual();
           calc();
         });
@@ -3031,6 +3087,18 @@
       selectedCoverageValue = 'ninguno';
       document.getElementById('coverage-none').checked = true;
       document.getElementById('no-coverage-btn').classList.add('active');
+      syncCoverageSelectionVisual();
+      calc();
+    });
+
+    document.getElementById('extended-warranty-container').addEventListener('click', function (event) {
+      var btn = event.target.closest('#no-warranty-btn');
+      if (!btn) return;
+
+      selectedWarrantyValue = 'ninguna';
+      var noWarrantyInput = document.getElementById('warranty-none');
+      if (noWarrantyInput) noWarrantyInput.checked = true;
+      btn.classList.add('active');
       syncCoverageSelectionVisual();
       calc();
     });
