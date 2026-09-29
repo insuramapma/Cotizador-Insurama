@@ -1700,12 +1700,12 @@
     const EXT_GARANTIA = {
       ranges: [[0, 200], [201, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 40000]],
       celulares: {
-        12: [79.32,158.63,198.29,237.95,277.61,297.44],
-        24: [118.98,237.95,297.44,356.93,416.41,446.16]
+        12: [99.91,199.82,249.77,299.72,349.68,374.65],
+        24: [149.86,299.72,374.65,449.59,524.52,561.98]
       },
       resto: {
         ranges: [[0, 400], [401, 800], [801, 2000], [2001, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 20300], [20301, 24400], [24401, 40000]],
-        36: [35.69,59.49,118.98,237.95,297.44,356.93,416.41,446.16,505.65,654.37]
+        36: [44.96,74.93,149.86,299.72,374.65,449.59,524.52,561.98,636.91,824.24]
       }
     };
 
@@ -1883,16 +1883,6 @@
       otros: { source: 'resto', months: [36] }
     };
 
-    const WARRANTY_DISPLAY_VALUES = {
-      celulares: {
-        12: { 0: { total: 99.91 }, 1: { total: 199.82 } },
-        24: { 0: { total: 149.86 }, 1: { total: 299.72 } }
-      },
-      resto: {
-        36: { 0: { total: 44.96 } }
-      }
-    };
-
     const DEVICES_WITH_RANGE_COVERAGE = ['iphone', 'macbook', 'ipad', 'iwatch', 'imac', 'airpods'];
 
     const CARD_THEMES = {
@@ -2032,9 +2022,7 @@
         var basePrice = sourceGroup[month] && sourceGroup[month][rangeIdx];
         if (basePrice === null || basePrice === undefined) return null;
 
-        var displayValues = WARRANTY_DISPLAY_VALUES[warranty.source][month][rangeIdx];
-        var total = displayValues ? displayValues.total : Number((basePrice * 1.1246 * 1.12).toFixed(2));
-        return { label: '12 + ' + month + ' MESES', months: month, total: total };
+        return { label: '12 + ' + month + ' MESES', months: month, total: basePrice };
       }).filter(function (option) { return option !== null; });
 
       if (options.length === 0) return null;

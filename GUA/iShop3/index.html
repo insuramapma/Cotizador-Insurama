@@ -2419,22 +2419,12 @@
     const EXTENDED_WARRANTY = {
       celulares: {
         ranges: [[0, 200], [201, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 40000]],
-        12: [79.32, 158.63, 198.29, 237.95, 277.61, 297.44],
-        24: [118.98, 237.95, 297.44, 356.93, 416.41, 446.16]
+        12: [99.91,199.82,249.77,299.72,349.68,374.65],
+        24: [149.86,299.72,374.65,449.59,524.52,561.98]
       },
       resto: {
         ranges: [[0, 400], [401, 800], [801, 2000], [2001, 4100], [4101, 8100], [8101, 12200], [12201, 16300], [16301, 20300], [20301, 24400], [24401, 40000]],
-        36: [35.69, 59.49, 118.98, 237.95, 297.44, 356.93, 416.41, 446.16, 505.65, 654.37]
-      }
-    };
-
-    const EXTENDED_WARRANTY_TOTAL_OVERRIDES = {
-      celulares: {
-        12: { 0: 99.91, 1: 199.82 },
-        24: { 0: 149.86, 1: 299.72 }
-      },
-      resto: {
-        36: { 0: 44.96 }
+        36: [44.96,74.93,149.86,299.72,374.65,449.59,524.52,561.98,636.91,824.24]
       }
     };
 
@@ -2485,10 +2475,7 @@
       var baseTotal = source[warrantyMonths][rangeIndex];
       if (baseTotal === null || baseTotal === undefined) return 0;
 
-      var overrides = EXTENDED_WARRANTY_TOTAL_OVERRIDES[sourceKey][warrantyMonths];
-      return overrides[rangeIndex] !== undefined
-        ? overrides[rangeIndex]
-        : Number((baseTotal * 1.1246 * 1.12).toFixed(2));
+      return baseTotal;
     }
 
     function renderExtendedWarrantyCard(device, devicePrice, paymentInfo, preferredWarrantyValue) {
