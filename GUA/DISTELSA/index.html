@@ -1191,6 +1191,7 @@
       background: linear-gradient(135deg, #0868F7 0%, #011833 100%);
       border-radius: 16px;
       padding: 16px 18px;
+      display: none;
     }
 
     .app-download-banner img {
@@ -1375,7 +1376,7 @@
               </li>
               <li class="flex items-start gap-3">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="color:#0868F7;flex-shrink:0;margin-top:4px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <p class="text-xs sm:text-sm" style="color:#011833">Cubre daño accidental (roturas o mojaduras) y robo/hurto, según la modalidad contratada.</p>
+                <p class="text-xs sm:text-sm" style="color:#011833">Cubre daño accidental (roturas o mojaduras) y robo, según la modalidad contratada.</p>
               </li>
               <li class="flex items-start gap-3">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="color:#0868F7;flex-shrink:0;margin-top:4px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
@@ -1387,7 +1388,7 @@
               </li>
               <li class="flex items-start gap-3">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="color:#0868F7;flex-shrink:0;margin-top:4px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <p class="text-xs sm:text-sm" style="color:#011833">Cubre 1 o 2 siniestros: 1 por daño accidental/mojadura + 1 por robo o hurto al año.</p>
+                <p class="text-xs sm:text-sm" style="color:#011833">Cubre 1 siniestro: 1 por daño accidental/mojadura ó 1 por robo.</p>
               </li>
             </ul>
           </div>
@@ -1399,7 +1400,7 @@
               <div class="space-y-2 sm:space-y-3">
                 <div class="flex items-start gap-2 sm:gap-3 pb-2 sm:pb-3" style="border-bottom:1px solid rgba(112,149,234,0.35)">
                   <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#0868F7;font-size:10px;line-height:1">1</span>
-                  <p class="text-xs sm:text-sm" style="color:#011833">Declarar el siniestro vía app <strong>INSURAMA</strong> o Espacio Cliente web.</p>
+                  <p class="text-xs sm:text-sm" style="color:#011833">Declarar el siniestro vía Espacio Cliente web.</p>
                 </div>
                 <div class="flex items-start gap-2 sm:gap-3 pb-2 sm:pb-3" style="border-bottom:1px solid rgba(112,149,234,0.35)">
                   <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#0868F7;font-size:10px;line-height:1">2</span>
@@ -1411,7 +1412,7 @@
                 </div>
                 <div class="flex items-start gap-2 sm:gap-3">
                   <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:#0868F7;font-size:10px;line-height:1">4</span>
-                  <p class="text-xs sm:text-sm" style="color:#011833"><strong>Robo o hurto:</strong> factura + denuncia + bloqueo IMEI.</p>
+                  <p class="text-xs sm:text-sm" style="color:#011833"><strong>Robo:</strong> factura + denuncia + bloqueo IMEI.</p>
                 </div>
               </div>
             </div>
@@ -1696,7 +1697,7 @@
 
     function createDeviceCoverageCards(data) {
       return [
-        createCoverageCard(data, 24, 'danosAccidentalesRoboExt', true, 'Seguro Daños Accidentales + Robo (1 siniestro + Garantía Extendida)', 'Protección contra daños accidentales y robo y garantía extendida'),
+        createCoverageCard(data, 24, 'danosAccidentalesRoboExt', true, 'Seguro Daños Accidentales + Robo (1 siniestro + Garantía Extendida)', 'Protección contra daños accidentales, robo y garantía extendida'),
         createCoverageCard(data, 12, 'danosAccidentalesRobo', false, 'Seguro Daños Accidentales + Robo (1 siniestro)', 'Protección contra daños accidentales, robo')
       ];
     }
@@ -1765,8 +1766,7 @@
         var priceDisplay = showMonthly
           ? '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(monthly) + '</span><span style="font-size:11px;font-weight:600;color:' + tariffColor + '">/mes</span></div>'
           : '<div style="text-align:right"><span style="font-size:' + priceFont + ';font-weight:700;color:' + tariffColor + ';line-height:1">' + fmt(total) + '</span></div>';
-        var highlight = isHighlight ? '<div style="font-size:10px;font-weight:500;color:' + theme.iconColor + ';margin-top:2px;text-transform:uppercase;letter-spacing:0.06em">RECOMENDADO</div>' : '';
-        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:' + (isHighlight ? '2px' : '1.5px') + ' solid ' + rowBorder + ';border-radius:14px;padding:' + (isHighlight ? '14px 16px' : '12px 14px') + ';box-shadow:' + rowShadow + ';transform:' + rowTransform + ';"><div><div style="font-size:' + (isHighlight ? '13px' : '12px') + ';font-weight:' + labelWeight + ';color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div>' + highlight + '</div>' + priceDisplay + '</div>';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;background:' + rowBg + ';border:' + (isHighlight ? '2px' : '1.5px') + ' solid ' + rowBorder + ';border-radius:14px;padding:' + (isHighlight ? '14px 16px' : '12px 14px') + ';box-shadow:' + rowShadow + ';transform:' + rowTransform + ';"><div><div style="font-size:' + (isHighlight ? '13px' : '12px') + ';font-weight:' + labelWeight + ';color:' + tariffColor + ';letter-spacing:0.01em">' + periodLabel + '</div></div>' + priceDisplay + '</div>';
       }).join('');
 
       var extraClass = recommended ? 'recommended-pulse' : '';
